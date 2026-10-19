@@ -1,22 +1,26 @@
 import type { Metadata } from "next";
-import ResourceLibrary from "@/components/ResourceLibrary";
-import { PageHeader, SectionRule } from "@/components/Bands";
+import { DiscordIcon } from "@/components/BrandIcons";
+import { links } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Resources",
-  description: "Slides, notes and practice problems from every Hacker Devils session, filed by track.",
+  description: "Slides, notes and problem sets from Hacker Devils sessions. Coming soon.",
 };
 
 export default function ResourcesPage() {
   return (
-    <>
-      <PageHeader title="The" accent="archive." lead="Slides, notes and practice problems from every session, filed by track." />
-      <section className="section wrap" aria-label="Library">
-        <SectionRule />
-        <div style={{ marginTop: 32 }}>
-          <ResourceLibrary />
-        </div>
-      </section>
-    </>
+    <section className="page-head coming-soon wrap grid-paper" aria-labelledby="resources-title">
+      <h1 id="resources-title">
+        Resources, <span className="accent">coming soon.</span>
+      </h1>
+      <p>
+        Slides, notes and problem sets from our LeetCode, system design and GPU programming sessions will live here. Until then, everything is
+        shared on Discord.
+      </p>
+      <a className="button primary" href={links.discord}>
+        <DiscordIcon className="brand-glyph" />
+        Join the Discord <span className="arrow" aria-hidden="true">↗</span>
+      </a>
+    </section>
   );
 }
