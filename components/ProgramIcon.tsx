@@ -14,7 +14,7 @@ export default function ProgramIcon({ id }: { id: ProgramId }) {
   const Icon = ICONS[id];
   return (
     <span className="ico" aria-hidden="true">
-      <Icon size={20} strokeWidth={1.75} />
+      <Icon size={22} strokeWidth={1.25} />
     </span>
   );
 }
