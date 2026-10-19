@@ -17,13 +17,13 @@ const initials = (name: string) =>
 export default function AboutPage() {
   return (
     <>
-      <PageHeader title="Who we" accent="are." lead="A Fulton Schools club open to every ASU student, built around weekly LeetCode practice, system design and GPU programming." />
+      <PageHeader title="Who we" accent="are." lead="A Fulton Schools club for technical interview prep. Built for tech majors, open to every ASU student." />
 
       <section className="section wrap" aria-labelledby="who">
         <SectionRule />
         <div className="split">
           <h2 id="who" className="lede">
-            Classes teach you how to program. Interviews test whether you can solve an unseen problem in 45 minutes with{" "}
+            Classes teach you how to program. Technical interviews test whether you can solve an unseen problem in 45 minutes with{" "}
             <span className="accent">someone watching.</span>
           </h2>
           <div className="body">
@@ -32,7 +32,7 @@ export default function AboutPage() {
               and Medium groups, and finish with a full solution review.
             </p>
             <p>
-              Alongside Wednesdays we run system design every other week and GPU programming sessions, plus a few events each semester with partner organizations. And there’s free pizza at every meeting.
+              Alongside Wednesdays we run system design every other week, with GPU programming coming soon, plus a few events each semester with partner organizations. And there’s free pizza at every meeting.
             </p>
           </div>
         </div>

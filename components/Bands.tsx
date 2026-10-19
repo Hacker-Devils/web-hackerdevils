@@ -58,7 +58,7 @@ export function JoinBand() {
           Show up Wednesday.
           <br /> <span className="accent">Leave sharper.</span>
         </h2>
-        <p>Join 900+ Sun Devils getting interview ready. Free, open to every major, no experience required.</p>
+        <p>Join 900+ Sun Devils preparing for technical interviews. Built for tech majors, open to every major. No experience required.</p>
         <Socials />
       </div>
       <JoinTerminal />

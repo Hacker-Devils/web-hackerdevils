@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function JoinPage() {
   return (
     <>
-      <PageHeader title="Three steps," accent="you’re in." lead="No experience required. Open to every ASU student, any major, any year." />
+      <PageHeader title="Three steps," accent="you’re in." lead="No experience required. Built for tech majors, open to every ASU student." />
 
       <section className="section wrap" aria-labelledby="steps-title">
         <SectionRule />
