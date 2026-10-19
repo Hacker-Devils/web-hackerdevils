@@ -4,6 +4,7 @@ import EventsTabs from "@/components/EventsTabs";
 import ProgramsExplorer from "@/components/ProgramsExplorer";
 import SessionDemo from "@/components/SessionDemo";
 import { DiscordIcon } from "@/components/BrandIcons";
+import Pizza from "@/components/Pizza";
 import { JoinBand, Metrics, SectionRule, SectionIntro } from "@/components/Bands";
 import { heroSpec, links, meetingSpec, wednesday } from "@/lib/content";
 
@@ -51,13 +52,13 @@ export default function HomePage() {
           id="programs-title"
           lead={
             <>
-              From weekly sets to semester contests.
-              <br /> Pick what you need, use all of it.
+              LeetCode every Wednesday, system design every other week,
+              <br /> and GPU programming sessions.
             </>
           }
         >
-          Everything we run,
-          <br /> <span className="accent">in one place.</span>
+          Three tracks,
+          <br /> <span className="accent">one club.</span>
         </SectionIntro>
         <ProgramsExplorer />
       </section>
@@ -97,14 +98,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section flush wrap" aria-labelledby="pizza-title">
+        <SectionRule />
+        <div className="pizza-grid">
+          <div className="pizza-board">
+            <Pizza />
+          </div>
+          <div className="pizza-copy">
+            <h2 id="pizza-title">
+              Free pizza.
+              <br /> <span className="accent">Every meeting.</span>
+            </h2>
+            <p>Every Hacker Devils meeting comes with free pizza. Come for the problems, stay for a slice. No sign-up, no catch.</p>
+            <a className="button primary" href={links.discord}>
+              <DiscordIcon className="brand-glyph" />
+              Find this week’s room <span className="arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="section flush wrap" aria-labelledby="events-title">
         <SectionRule />
         <SectionIntro
           id="events-title"
           lead={
             <>
-              Code-A-Thons, mock OAs and interview nights,
-              <br /> often with WiCS and SDA.
+              Weekly meetings, plus a few events
+              <br /> each semester.
             </>
           }
         >
