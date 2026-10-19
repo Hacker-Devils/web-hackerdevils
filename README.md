@@ -22,32 +22,33 @@ app/
   layout.tsx          Fonts, metadata, header/footer, no-flash theme script
   globals.css         Design tokens (dark + light) and every style on the site
   page.tsx            Home
-  about/              Who we are, story, how Wednesdays work, team, partners
+  about/              Who we are, how Wednesdays work, current leadership, partners
   events/             Programs (tabs + grid), upcoming/past events, countdown, host-with-us
-  resources/          Meeting archive by track
+  resources/          "Coming soon" screen until materials are posted
   join/               Three steps, FAQ, contact form
   icon.svg            Favicon
-components/           Header, nav, theme toggle, session demo, program tabs + visuals, countdown, FAQ, forms…
-lib/content.ts        ALL site copy: programs, events, team, tracks, FAQ, links
+components/           Header, nav, theme toggle, session demo, program tabs + visuals, pizza drawing, countdown, FAQ, forms…
+lib/content.ts        ALL site copy: programs, events, team, FAQ, links
+lib/calendar.ts       Meeting schedule + Google Calendar links (weekly and all-day)
 lib/demo.ts           Problems played by the home page session demo
 ```
 
 **To change copy, edit `lib/content.ts`.** For example:
 
-- **New event:** add it to `events.upcoming` (or move it to `events.past`).
-- **New team member:** add a row to `team`. The role (`Officer`, `Advisor` or `Team`) sets the avatar colour.
-- **Meeting materials:** give a `materials` entry an `href` and its chip becomes a link:
+- **New event:** add it to `events.upcoming` (or move it to `events.past`). Give it a `calendar` range and it gets an "Add to calendar" button; a `status` shows as a pill, e.g. "Registration opens soon":
   ```ts
-  { label: "Slides", href: "https://docs.google.com/presentation/d/…" }
+  { date: "Nov 1–7", title: "Mock Interview Week", detail: "With partner organizations", status: "Registration opens soon",
+    calendar: { title: "Hacker Devils · Mock Interview Week", start: "2026-11-01", end: "2026-11-07", details: "…" } }
   ```
-- **Launching a "coming soon" track:** remove `soon: true` and add its `sessions`.
+- **Team:** rows in `team` render in order. `title` is the label shown (e.g. "President"); `tier` (`advisor`, `lead` or `team`) sets the avatar colour.
 - **This week's demo problem:** edit `lib/demo.ts`. Keep `code` under about 14 lines so it fits the panel.
 
 ## Behaviour
 
 - **Theme:** dark by default, or follows the OS if no choice is saved. The toggle is saved in `localStorage` (`hkd-theme`) and applied before first paint, so there's no flash.
 - **Countdown:** counts down to the next Wednesday 6 PM Arizona time (Arizona doesn't observe DST, so this is Thursday 01:00 UTC). It shows "Happening now" during the meeting hour.
-- **Deep links:** `/events#codeathon` and `/resources#gpu` open that tab. The home page program links use these. The old `/programs` and `/interviews` URLs redirect permanently to `/events` (see `next.config.ts`).
+- **Deep links:** `/events#gpu` (or `#practice`, `#system-design`) opens that program tab. The home page program links use these. The old `/programs` and `/interviews` URLs redirect permanently to `/events` (see `next.config.ts`).
+- **Pizza drawing:** draws itself stroke by stroke when scrolled into view; with reduced motion it simply appears.
 - **Contact form:** with no endpoint set, it just shows the "Thanks, we'll be in touch" state. To actually collect submissions, point it at a form backend that accepts `POST` with `FormData` (Formspree, Getform, etc.), in `.env.local` or your host's env settings:
   ```
   NEXT_PUBLIC_CONTACT_FORM_ENDPOINT=https://formspree.io/f/xxxxxxx
