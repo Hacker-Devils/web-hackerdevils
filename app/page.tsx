@@ -1,102 +1,128 @@
 import Link from "next/link";
 import Countdown from "@/components/Countdown";
 import EventsTabs from "@/components/EventsTabs";
-import ProgramTile from "@/components/ProgramTile";
-import { JoinBand, SectionHead, StatCluster } from "@/components/Bands";
-import { interviewFormats, links, programs, tracks } from "@/lib/content";
+import ProgramsExplorer from "@/components/ProgramsExplorer";
+import SessionDemo from "@/components/SessionDemo";
+import { DiscordIcon } from "@/components/BrandIcons";
+import { JoinBand, Metrics, SectionRule, SectionIntro } from "@/components/Bands";
+import { heroSpec, links, meetingSpec, wednesday } from "@/lib/content";
 
 export default function HomePage() {
   return (
-    <div className="grid">
-      <section className="t hero s8" aria-labelledby="hero-title">
-        <h1 id="hero-title">
-          Get interview
-          <br />
-          ready, together.
-        </h1>
-        <p>
-          Hacker Devils is the premier competitive coding organization at Arizona State University. We prepare Sun Devils for the online
-          assessments and technical interviews that decide internships and jobs.
-        </p>
-        <div className="row">
-          <a className="btn g" href={links.discord}>
-            Join the Discord
-          </a>
-          <Link className="btn w" href="/programs">
-            What we do
+    <>
+      <section className="hero wrap grid-paper" aria-labelledby="hero-title">
+        <div className="hero-copy">
+          <h1 id="hero-title">
+            Competitive and Collaborative
+            <br /> <span className="accent">Programming Club.</span>
+          </h1>
+          <p>
+            Hacker Devils is a Fulton Schools student organization that prepares Sun Devils for coding interviews and online assessments,
+            while teaching the programming fundamentals that matter in industry.
+          </p>
+          <div className="hero-actions">
+            <a className="button primary" href={links.discord}>
+              <DiscordIcon className="brand-glyph" />
+              Join the Discord <span className="arrow" aria-hidden="true">↗</span>
+            </a>
+            <a className="text-link" href="#demo">
+              See a Wednesday <span className="arrow" aria-hidden="true">↓</span>
+            </a>
+          </div>
+        </div>
+
+        <SessionDemo />
+
+        <dl className="system-spec">
+          {heroSpec.map((s) => (
+            <div key={s.label}>
+              <dt className="mono">{s.label}</dt>
+              <dd>
+                <strong>{s.value}</strong>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="section wrap" aria-labelledby="programs-title">
+        <SectionRule />
+        <SectionIntro
+          id="programs-title"
+          lead={
+            <>
+              From weekly sets to semester contests.
+              <br /> Pick what you need, use all of it.
+            </>
+          }
+        >
+          Everything we run,
+          <br /> <span className="accent">in one place.</span>
+        </SectionIntro>
+        <ProgramsExplorer />
+      </section>
+
+      <section className="section flush wrap" aria-labelledby="meeting-title">
+        <SectionRule />
+        <div className="meeting-grid" style={{ marginTop: 42 }}>
+          <div className="meeting-copy">
+            <h2 id="meeting-title">
+              One hour.
+              <br /> <span className="accent">Every week.</span>
+            </h2>
+            <p>
+              Classes teach you how to program. Interviews test whether you can solve an unseen problem in 45 minutes with someone watching.
+              Wednesdays close that gap.
+            </p>
+            <dl className="spec-list">
+              {meetingSpec.map((s) => (
+                <div key={s.label}>
+                  <dt>{s.label.toUpperCase()}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <Countdown>
+            <ol className="agenda" aria-label="Meeting agenda">
+              {wednesday.map((w) => (
+                <li key={w.time}>
+                  <span className="mono">{w.time}</span>
+                  <strong style={{ fontWeight: 400 }}>{w.title}</strong>
+                  <p>{w.body}</p>
+                </li>
+              ))}
+            </ol>
+          </Countdown>
+        </div>
+      </section>
+
+      <section className="section flush wrap" aria-labelledby="events-title">
+        <SectionRule />
+        <SectionIntro
+          id="events-title"
+          lead={
+            <>
+              Code-A-Thons, mock OAs and interview nights,
+              <br /> often with WiCS and SDA.
+            </>
+          }
+        >
+          On the <span className="accent">calendar.</span>
+        </SectionIntro>
+        <EventsTabs />
+        <div style={{ marginTop: 22 }}>
+          <Link className="text-link" href="/events">
+            All events <span className="arrow" aria-hidden="true">→</span>
           </Link>
         </div>
+        <div style={{ marginTop: 64 }}>
+          <Metrics />
+        </div>
       </section>
 
-      <div className="col s4">
-        <Countdown />
-        <Link href="/join" className="t open">
-          <span className="dot">
-            <i aria-hidden="true" />
-            Tempe campus
-          </span>
-          <h2>Open to every ASU student</h2>
-          <span className="lab">Any major, any year, no experience required.</span>
-        </Link>
-      </div>
-
-      <section className="t about s7" aria-labelledby="who">
-        <h2 id="who">Who we are</h2>
-        <p className="big">
-          Classes teach you how to program. Interviews test whether you can solve an unseen problem in 45 minutes with someone watching.
-        </p>
-        <p>Hacker Devils closes that gap with weekly practice, Code-A-Thons, mock interviews and technical workshops.</p>
-        <Link className="more" href="/about">
-          More about us →
-        </Link>
-      </section>
-      <StatCluster />
-
-      <SectionHead title="Programs" lead="Everything we run, from weekly practice to semester contests and workshops." />
-      {programs.map((p) => (
-        <ProgramTile key={p.id} p={p} />
-      ))}
-
-      <EventsTabs className="s7" />
-
-      <section className="t iv s5" aria-labelledby="iv-title">
-        <h2 id="iv-title">Mock interviews</h2>
-        <div className="lab">Two formats. Use both.</div>
-        <div className="ivc">
-          <span className="k">{interviewFormats.ai.name}</span>
-          <h4>Practice any time</h4>
-          <p>{interviewFormats.ai.desc}</p>
-        </div>
-        <div className="ivc b">
-          <span className="k">{interviewFormats.peer.name}</span>
-          <h4>The real thing, rehearsed</h4>
-          <p>Live 45-minute interviews with members and officers, followed by an honest debrief.</p>
-        </div>
-        <Link className="btn p" href="/interviews">
-          Request a mock interview
-        </Link>
-      </section>
-
-      <section className="t res s12" aria-labelledby="res-title">
-        <div className="tx">
-          <h2 id="res-title">Resources</h2>
-          <div className="lab">Slides and notes from every session.</div>
-        </div>
-        <div className="chips">
-          {tracks.map((t) => (
-            <Link key={t.id} href={`/resources#${t.id}`} className={`chip${t.soon ? " s" : ""}`}>
-              <i aria-hidden="true" />
-              {t.name}
-              {t.soon ? " · soon" : ""}
-            </Link>
-          ))}
-        </div>
-        <Link className="btn o" href="/resources">
-          Open library →
-        </Link>
-      </section>
 
       <JoinBand />
-    </div>
+    </>
   );
 }
