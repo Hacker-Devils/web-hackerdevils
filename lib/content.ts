@@ -32,7 +32,6 @@ export const stats = [
 ] as const;
 
 export type ProgramId = "practice" | "codeathon" | "interviews" | "system-design" | "gpu" | "inference-backend";
-export type ProgramTone = "plain" | "gold" | "tint" | "soon";
 
 export type Program = {
   id: ProgramId;
@@ -41,65 +40,57 @@ export type Program = {
   short: string;
   long: string;
   learn: string[];
-  tone: ProgramTone;
   soon?: boolean;
 };
 
 export const programs: Program[] = [
   {
     id: "practice",
-    name: "Weekly practice",
+    name: "LeetCode practice",
     when: "Every Wednesday",
-    tone: "plain",
-    short: "Interview problems in Easy and Medium groups, with a solution review every session.",
-    long: "Every Wednesday, officers bring a problem set modeled on real online assessments. You join the Easy or Medium group, solve in small teams with officers on hand, and finish with a full walkthrough of solutions, complexity and edge cases.",
+    short: "LeetCode-style problems in Easy and Medium groups, with a solution review every session.",
+    long: "Every Wednesday, officers bring a LeetCode-style problem set modeled on real online assessments. You join the Easy or Medium group, solve in small teams with officers on hand, and finish with a full walkthrough of solutions, complexity and edge cases.",
     learn: ["Arrays, strings and hashing", "Two pointers and sliding window", "Trees, graphs and BFS/DFS", "Dynamic programming patterns"],
+  },
+  {
+    id: "system-design",
+    name: "System design",
+    when: "Every other week",
+    short: "Design real systems end to end, from requirements to scaling trade-offs.",
+    long: "Every other week we take one real system, such as a URL shortener, a chat app or a news feed, and design it end to end with a repeatable interview framework.",
+    learn: ["Requirements and estimation", "APIs and data models", "Caching, queues and load balancing", "Trade-off discussions"],
   },
   {
     id: "codeathon",
     name: "Code-A-Thons",
-    when: "Each semester",
-    tone: "gold",
+    when: "Event",
     short: "Timed contests that recreate the pressure of a real online assessment.",
-    long: "Our signature contests run for about three hours. Solve a ladder of problems against the clock, solo or in teams, with a live leaderboard. It is the closest thing to a real OA you can do with friends.",
+    long: "Our signature contest runs for about three hours. Solve a ladder of problems against the clock, solo or in teams, with a live leaderboard. It is the closest thing to a real OA you can do with friends.",
     learn: ["Working under time pressure", "Choosing which problem to attempt", "Debugging fast", "Reading constraints carefully"],
+  },
+  {
+    id: "gpu",
+    name: "GPU programming",
+    when: "Event",
+    short: "CUDA from first principles: threads, memory and the kernels behind ML.",
+    long: "A hands-on event on thinking in parallel. Start with your first CUDA kernel and work up to shared-memory tiling and the optimizations that power modern machine learning.",
+    learn: ["Threads, blocks and grids", "The memory hierarchy", "Coalescing and shared memory", "Profiling kernels"],
   },
   {
     id: "interviews",
     name: "Mock interviews",
-    when: "Once a semester",
-    tone: "tint",
+    when: "Event · once a semester",
     short: "A dedicated mock interview week each semester, run like the real thing.",
     long: "Once a semester we hold a mock interview week. Members interview with officers and partner organizations in 45-minute sessions run like the real thing, followed by an honest debrief. Dates are announced on Discord.",
     learn: ["Thinking out loud", "Clarifying requirements", "Behavioral storytelling", "Handling hints and follow-ups"],
   },
   {
-    id: "system-design",
-    name: "System design",
-    when: "Workshop series",
-    tone: "plain",
-    short: "Design real systems end to end, from requirements to scaling trade-offs.",
-    long: "Each workshop takes one real system, such as a URL shortener, a chat app or a news feed, and designs it end to end with a repeatable interview framework.",
-    learn: ["Requirements and estimation", "APIs and data models", "Caching, queues and load balancing", "Trade-off discussions"],
-  },
-  {
-    id: "gpu",
-    name: "GPU programming",
-    when: "Workshop series",
-    tone: "plain",
-    short: "CUDA from first principles: threads, memory and the kernels behind ML.",
-    long: "Learn to think in parallel. We start with your first CUDA kernel and work up to shared-memory tiling and the optimizations that power modern machine learning.",
-    learn: ["Threads, blocks and grids", "The memory hierarchy", "Coalescing and shared memory", "Profiling kernels"],
-  },
-  {
     id: "inference-backend",
-    name: "Inference & Backend",
-    when: "Coming soon",
-    tone: "soon",
-    soon: true,
-    short: "Upcoming workshops on serving models and building production services.",
-    long: "Two new workshop series are in the works: serving ML models in production (batching, quantization, KV caches, latency) and backend development (APIs, databases, auth, queues and deployment).",
-    learn: ["Model serving and batching", "Quantization basics", "REST and gRPC APIs", "Databases and deployment"],
+    name: "Backend & Inference",
+    when: "Collab workshops",
+    short: "Workshops with partner organizations on backend engineering and ML inference.",
+    long: "Collaborative workshops co-hosted with partner organizations: backend engineering (APIs, databases, auth, queues and deployment) and inference (serving models in production, batching, quantization, KV caches and latency).",
+    learn: ["REST and gRPC APIs", "Databases and deployment", "Model serving and batching", "Quantization basics"],
   },
 ];
 
@@ -117,7 +108,7 @@ export const events: { upcoming: EventItem[]; past: EventItem[] } = {
   upcoming: [
     { day: "Wed", month: "Weekly", title: "Weekly Meeting", detail: "Interview practice · 6–7 PM · Tempe", action: "RSVP", href: links.discord, highlight: true },
     { day: "TBA", month: "Fall", title: "Fall Code-A-Thon", detail: "Timed contest", action: "Details soon" },
-    { day: "TBA", month: "Fall", title: "System Design Workshop", detail: "Workshop series", action: "Details soon" },
+    { day: "Biweekly", month: "Fall", title: "System Design", detail: "Every other week", action: "Details soon" },
     { day: "TBA", month: "Fall", title: "Mock Interview Week", detail: "One week · with partner organizations", action: "Details soon" },
   ],
   past: [

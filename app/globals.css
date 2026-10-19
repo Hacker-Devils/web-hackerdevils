@@ -339,11 +339,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .threads i.on { background: var(--maroon); border-color: var(--maroon); }
 .threads i.lit { background: var(--gold); border-color: var(--gold); }
 .kernel { margin-top: 18px; font: 11.5px/1.8 var(--mono); padding: 12px 14px; }
-.soon-box { border: 1px dashed var(--rule); border-radius: 6px; padding: 16px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
-.soon-box + .soon-box { margin-top: 12px; }
-.soon-box strong { font-weight: 400; font-size: 14px; display: block; }
-.soon-box small { color: var(--ink-muted); font-size: 11px; }
-.soon-box .mono { color: var(--gold-ink); }
+.collab-box { border: 1px solid var(--line); border-radius: 6px; padding: 16px; display: flex; justify-content: space-between; align-items: center; background: var(--surface); }
+.collab-box + .collab-box { margin-top: 12px; }
+.collab-box strong { font-weight: 400; font-size: 14px; display: block; }
+.collab-box small { color: var(--ink-muted); font-size: 11px; }
+.collab-box .mono { color: var(--gold-ink); }
 
 /* Program index grid (cells with hairlines) */
 .cells { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }

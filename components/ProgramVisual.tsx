@@ -148,19 +148,19 @@ function Gpu() {
   );
 }
 
-function Soon() {
+function Collab() {
   return (
     <div>
       {[
+        ["Backend engineering", "APIs, databases, auth, queues"],
         ["Inference", "Batching, quantization, KV caches"],
-        ["Backend", "APIs, databases, auth, queues"],
       ].map(([name, body]) => (
-        <div key={name} className="soon-box">
+        <div key={name} className="collab-box">
           <div>
             <strong>{name}</strong>
             <small>{body}</small>
           </div>
-          <span className="mono">Soon</span>
+          <span className="mono">Collab</span>
         </div>
       ))}
     </div>
@@ -173,7 +173,7 @@ const VISUALS: Record<ProgramId, () => React.JSX.Element> = {
   interviews: Interviews,
   "system-design": SystemDesign,
   gpu: Gpu,
-  "inference-backend": Soon,
+  "inference-backend": Collab,
 };
 
 /** Drawing-board frame with a small illustration of each program. */
