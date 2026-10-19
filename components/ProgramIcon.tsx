@@ -1,13 +1,10 @@
-import { Code, Cpu, MessageSquare, Network, Timer, Zap, type LucideIcon } from "lucide-react";
+import { Code, Cpu, Network, type LucideIcon } from "lucide-react";
 import type { ProgramId } from "@/lib/content";
 
 const ICONS: Record<ProgramId, LucideIcon> = {
   practice: Code,
-  codeathon: Timer,
-  interviews: MessageSquare,
   "system-design": Network,
   gpu: Cpu,
-  "inference-backend": Zap,
 };
 
 export default function ProgramIcon({ id }: { id: ProgramId }) {
