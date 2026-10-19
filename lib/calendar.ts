@@ -32,7 +32,27 @@ export function googleCalendarUrl(start: number) {
     ctz: "America/Phoenix",
     recur: "RRULE:FREQ=WEEKLY;BYDAY=WE",
     location: "ASU Tempe campus",
-    details: `Weekly interview practice in Easy and Medium groups, with a solution review. Bring a laptop.\n\nRoom details and announcements: ${links.discord}`,
+    details: `Weekly LeetCode practice in Easy and Medium groups, with a solution review. Free pizza. Bring a laptop.\n\nRoom details and announcements: ${links.discord}`,
+  });
+  return `https://calendar.google.com/calendar/render?${params}`;
+}
+
+const ymd = (iso: string, addDays = 0) => {
+  const d = new Date(`${iso}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + addDays);
+  return d.toISOString().slice(0, 10).replace(/-/g, "");
+};
+
+/** Google Calendar link for an all-day event spanning `start`–`end` (inclusive, YYYY-MM-DD). */
+export function allDayCalendarUrl({ title, start, end, details }: { title: string; start: string; end: string; details: string }) {
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: title,
+    // Google treats the end date of an all-day range as exclusive.
+    dates: `${ymd(start)}/${ymd(end, 1)}`,
+    ctz: "America/Phoenix",
+    location: "ASU Tempe campus",
+    details: `${details}\n\nDetails and registration: ${links.discord}`,
   });
   return `https://calendar.google.com/calendar/render?${params}`;
 }
