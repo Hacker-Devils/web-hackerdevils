@@ -18,7 +18,7 @@ export default function HomePage() {
             <br /> <span className="accent">Programming Club.</span>
           </h1>
           <p>
-            Hacker Devils is a Fulton Schools student organization that prepares Sun Devils for coding interviews and online assessments,
+            Hacker Devils is a Fulton Schools student organization that prepares Sun Devils for technical interviews and online assessments,
             while teaching the programming fundamentals that matter in industry.
           </p>
           <div className="hero-actions">
@@ -52,13 +52,12 @@ export default function HomePage() {
           id="programs-title"
           lead={
             <>
-              LeetCode every Wednesday, system design every other week,
-              <br /> and GPU programming sessions.
+              LeetCode every Wednesday and system design every other week.
+              GPU programming is coming soon.
             </>
           }
         >
-          Three tracks,
-          <br /> <span className="accent">one club.</span>
+          Learn and <span className="accent">prepare.</span>
         </SectionIntro>
         <ProgramsExplorer />
       </section>
@@ -72,7 +71,7 @@ export default function HomePage() {
               <br /> <span className="accent">Every week.</span>
             </h2>
             <p>
-              Classes teach you how to program. Interviews test whether you can solve an unseen problem in 45 minutes with someone watching.
+              Classes teach you how to program. Technical interviews test whether you can solve an unseen problem in 45 minutes with someone watching.
               Wednesdays close that gap.
             </p>
             <dl className="spec-list">
