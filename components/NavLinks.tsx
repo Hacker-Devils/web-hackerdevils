@@ -7,15 +7,12 @@ import { nav } from "@/lib/content";
 export default function NavLinks() {
   const pathname = usePathname();
   return (
-    <div className="pills">
-      {nav.map((item) => {
-        const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-        return (
-          <Link key={item.href} href={item.href} aria-current={active ? "page" : undefined}>
-            {item.label}
-          </Link>
-        );
-      })}
+    <div className="nav-links">
+      {nav.slice(1).map((item) => (
+        <Link key={item.href} href={item.href} aria-current={pathname.startsWith(item.href) ? "page" : undefined}>
+          {item.label}
+        </Link>
+      ))}
     </div>
   );
 }

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { links, tracks } from "@/lib/content";
 import { nextTabIndex } from "@/lib/tabs";
+import { DiscordIcon } from "./BrandIcons";
 
 /** Track tabs + session cards. Supports deep links like /resources#gpu. */
 export default function ResourceLibrary() {
@@ -25,8 +26,8 @@ export default function ResourceLibrary() {
   }
 
   return (
-    <section className="t s12" aria-label="Resource library">
-      <div className="chips" role="tablist" aria-label="Tracks">
+    <section aria-label="Resource library">
+      <div className="feature-tabs" role="tablist" aria-label="Tracks">
         {tracks.map((t, i) => (
           <button
             key={t.id}
@@ -35,7 +36,6 @@ export default function ResourceLibrary() {
             }}
             type="button"
             role="tab"
-            className={`chip${t.soon ? " s" : ""}`}
             id={`tab-${t.id}`}
             aria-controls={`panel-${t.id}`}
             aria-selected={active === t.id}
@@ -49,49 +49,49 @@ export default function ResourceLibrary() {
               refs.current[j]?.focus();
             }}
           >
-            <i aria-hidden="true" />
-            {t.name}
-            {t.soon ? " · soon" : ""}
+            <span>{String(i + 1).padStart(2, "0")}</span> {t.name}
+            {t.soon ? <span className="soon-tag">SOON</span> : null}
           </button>
         ))}
       </div>
 
       {tracks.map((t) => (
         <div key={t.id} id={`panel-${t.id}`} role="tabpanel" aria-labelledby={`tab-${t.id}`} hidden={active !== t.id}>
-          <p className="blurb">{t.blurb}</p>
-          <div className="cards">
-            {t.soon ? (
-              <div className="empty">
-                <h4>{t.name} workshops are on the way.</h4>
-                <p className="lab">Slides, recordings and starter code will appear here after the first session.</p>
-                <a className="btn o" href={links.discord}>
-                  Get notified on Discord
-                </a>
-              </div>
-            ) : (
-              t.sessions.map((s, j) => (
-                <article key={s.title} className="sc2">
-                  <div className="tr">
-                    <i aria-hidden="true" />
-                    {t.name} · Session {String(j + 1).padStart(2, "0")}
-                  </div>
+          <p className="track-blurb">{t.blurb}</p>
+          {t.soon ? (
+            <div className="empty">
+              <span className="mono">Status · in the works</span>
+              <h4>{t.name} workshops are on the way.</h4>
+              <p>Slides, recordings and starter code will appear here after the first session.</p>
+              <a className="button ghost" href={links.discord}>
+                <DiscordIcon className="brand-glyph" />
+                Get notified on Discord <span className="arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
+          ) : (
+            <ul className="files">
+              {t.sessions.map((s, j) => (
+                <li key={s.title} className="file-row">
+                  <span className="mono">S.{String(j + 1).padStart(2, "0")}</span>
                   <h4>{s.title}</h4>
                   <p>{s.desc}</p>
-                  <div className="mat">
+                  <div className="chips">
                     {s.materials.map((m) =>
                       m.href ? (
-                        <a key={m.label} href={m.href} target="_blank" rel="noreferrer">
-                          {m.label}
+                        <a key={m.label} className="tag" href={m.href} target="_blank" rel="noreferrer">
+                          {m.label} <span aria-hidden="true">↗</span>
                         </a>
                       ) : (
-                        <span key={m.label}>{m.label}</span>
+                        <span key={m.label} className="tag">
+                          {m.label}
+                        </span>
                       ),
                     )}
                   </div>
-                </article>
-              ))
-            )}
-          </div>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       ))}
     </section>

@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
+import { IBM_Plex_Mono, Sora } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import "./globals.css";
+
+const sora = Sora({ subsets: ["latin"], weight: ["300", "400", "600"], variable: "--font-sora", display: "swap" });
+const plexMono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono", display: "swap" });
 
 export const metadata: Metadata = {
   title: {
@@ -31,18 +33,16 @@ const themeScript = `(function(){try{var t=localStorage.getItem('hkd-theme');if(
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+    <html lang="en" data-theme="dark" className={`${sora.variable} ${plexMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
-        <a className="skip" href="#main">
+        <a className="skip-link" href="#main">
           Skip to content
         </a>
         <SiteHeader />
-        <main id="main" className="wrap">
-          {children}
-        </main>
+        <main id="main">{children}</main>
         <SiteFooter />
       </body>
     </html>

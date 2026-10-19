@@ -39,12 +39,12 @@ export default function ThanksForm({ endpoint, className = "form", submitLabel, 
   if (state === "sent") {
     return (
       <div className="sent" role="status" tabIndex={-1} ref={thanksRef}>
-        <span className="dot">
-          <i aria-hidden="true" />
+        <span className="mono">
+          <span className="status-dot live" aria-hidden="true" />
           {thanksTag}
         </span>
         <b>{thanksTitle}</b>
-        <span className="lab">{thanksBody}</span>
+        <span>{thanksBody}</span>
       </div>
     );
   }
@@ -53,12 +53,12 @@ export default function ThanksForm({ endpoint, className = "form", submitLabel, 
     <form className={className} onSubmit={onSubmit}>
       {children}
       {state === "error" ? (
-        <p className="lab full" role="alert">
+        <p className="form-error full" role="alert">
           Something went wrong. Please try again or email hckrdevils@gmail.com.
         </p>
       ) : null}
-      <button className="btn p" type="submit" disabled={state === "sending"}>
-        {state === "sending" ? "Sending…" : submitLabel}
+      <button className="button primary" type="submit" disabled={state === "sending"}>
+        {state === "sending" ? "Sending…" : submitLabel} <span className="arrow" aria-hidden="true">↗</span>
       </button>
     </form>
   );
