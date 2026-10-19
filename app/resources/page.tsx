@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ResourceLibrary from "@/components/ResourceLibrary";
-import { PageHeader } from "@/components/Bands";
+import { PageHeader, SectionRule } from "@/components/Bands";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -9,9 +9,14 @@ export const metadata: Metadata = {
 
 export default function ResourcesPage() {
   return (
-    <div className="grid">
-      <PageHeader title="Resources" lead="Slides, notes and practice problems from every session, filed by track." />
-      <ResourceLibrary />
-    </div>
+    <>
+      <PageHeader title="The" accent="archive." lead="Slides, notes and practice problems from every session, filed by track." />
+      <section className="section wrap" aria-label="Library">
+        <SectionRule />
+        <div style={{ marginTop: 32 }}>
+          <ResourceLibrary />
+        </div>
+      </section>
+    </>
   );
 }

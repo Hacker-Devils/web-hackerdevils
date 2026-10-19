@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Faq from "@/components/Faq";
 import ThanksForm from "@/components/ThanksForm";
-import { PageHeader } from "@/components/Bands";
+import { JoinTerminal, PageHeader, SectionRule, SectionIntro } from "@/components/Bands";
 import { links } from "@/lib/content";
 
 export const metadata: Metadata = {
@@ -11,53 +11,74 @@ export const metadata: Metadata = {
 
 export default function JoinPage() {
   return (
-    <div className="grid">
-      <PageHeader title="Join" lead="Three steps, and you’re in. No experience required." />
+    <>
+      <PageHeader title="Three steps," accent="you’re in." lead="No experience required. Open to every ASU student, any major, any year." />
 
-      <a href={links.discord} className="t js s4">
-        <b aria-hidden="true">1</b>
-        <h3>Join the Discord</h3>
-        <p>Announcements, weekly problems and room details.</p>
-        <span className="go">Open Discord →</span>
-      </a>
-      <a href={links.sunDevilCentral} className="t js s4">
-        <b aria-hidden="true">2</b>
-        <h3>Register on Sun Devil Central</h3>
-        <p>Become an official member of the org.</p>
-        <span className="go">Open Sun Devil Central →</span>
-      </a>
-      <div className="t js s4 gold">
-        <b aria-hidden="true">3</b>
-        <h3>Show up Wednesday</h3>
-        <p>6–7 PM on the Tempe campus. Bring a laptop.</p>
-      </div>
-
-      <Faq />
-
-      <section className="t contact s5" aria-labelledby="contact-title">
-        <h2 id="contact-title">Contact</h2>
-        <p className="lab">Questions, partnerships or sponsorships. Or email {links.email}.</p>
-        <ThanksForm
-          endpoint={process.env.NEXT_PUBLIC_CONTACT_FORM_ENDPOINT}
-          submitLabel="Send message"
-          thanksTag="Message sent"
-          thanksTitle="Thanks, we’ll be in touch."
-          thanksBody="An officer will reply by email, usually within a few days."
-        >
-          <label>
-            Name
-            <input name="name" required autoComplete="name" />
-          </label>
-          <label>
-            Email
-            <input name="email" type="email" required autoComplete="email" />
-          </label>
-          <label>
-            Message
-            <textarea name="message" rows={4} required />
-          </label>
-        </ThanksForm>
+      <section className="section wrap" aria-labelledby="steps-title">
+        <SectionRule />
+        <div className="meeting-grid" style={{ marginTop: 42 }}>
+          <div className="meeting-copy">
+            <h2 id="steps-title">
+              Start this <span className="accent">Wednesday.</span>
+            </h2>
+            <p>Join the Discord for announcements and room details, register on Sun Devil Central to make it official, then come solve something.</p>
+          </div>
+          <JoinTerminal />
+        </div>
       </section>
-    </div>
+
+      <section className="section flush wrap" aria-labelledby="faq-title">
+        <SectionRule />
+        <SectionIntro id="faq-title" lead={`Something else? Email ${links.email}.`}>
+          Questions, <span className="accent">answered.</span>
+        </SectionIntro>
+        <Faq />
+      </section>
+
+      <section className="section flush wrap" aria-labelledby="contact-title">
+        <SectionRule />
+        <div className="meeting-grid" style={{ marginTop: 42 }}>
+          <div className="meeting-copy">
+            <h2 id="contact-title">
+              Say <span className="accent">hello.</span>
+            </h2>
+            <p>Questions, partnerships or sponsorships. An officer will reply by email.</p>
+          </div>
+          <div className="terminal">
+            <div className="terminal-heading mono">
+              <span>
+                <span className="status-dot" aria-hidden="true" /> Hacker Devils — contact
+              </span>
+              <span aria-hidden="true">↗</span>
+            </div>
+            <div className="terminal-body">
+              <p className="terminal-command">
+                <span aria-hidden="true">$</span>hkd message --to officers
+              </p>
+              <ThanksForm
+                endpoint={process.env.NEXT_PUBLIC_CONTACT_FORM_ENDPOINT}
+                submitLabel="Send message"
+                thanksTag="Message sent"
+                thanksTitle="Thanks, we’ll be in touch."
+                thanksBody="An officer will reply by email, usually within a few days."
+              >
+                <label>
+                  Name
+                  <input name="name" required autoComplete="name" />
+                </label>
+                <label>
+                  Email
+                  <input name="email" type="email" required autoComplete="email" />
+                </label>
+                <label>
+                  Message
+                  <textarea name="message" rows={4} required />
+                </label>
+              </ThanksForm>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
