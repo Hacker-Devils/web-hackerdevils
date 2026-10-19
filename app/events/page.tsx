@@ -8,7 +8,7 @@ import { links, meetingSpec } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "Weekly LeetCode practice, system design every other week, Code-A-Thons, GPU programming and mock interview events, and collab workshops on backend engineering and inference.",
+    "LeetCode every Wednesday, system design every other week and GPU programming sessions at Hacker Devils, plus a few events each semester.",
 };
 
 export default function EventsPage() {
@@ -17,12 +17,12 @@ export default function EventsPage() {
       <PageHeader
         title="Every week,"
         accent="every semester."
-        lead="LeetCode practice every Wednesday, system design every other week, events like Code-A-Thons, GPU programming and mock interviews, and collab workshops on backend engineering and inference. Dates are announced on Discord first."
+        lead="LeetCode every Wednesday, system design every other week and GPU programming sessions, plus a few events each semester. Dates are announced on Discord first."
       />
 
       <section className="section wrap" aria-labelledby="programs-title">
         <SectionRule />
-        <SectionIntro id="programs-title" lead="Free and open to every ASU student. Select a tab or a tile.">
+        <SectionIntro id="programs-title" lead="Free and open to every ASU student, with free pizza at every meeting.">
           What we <span className="accent">run.</span>
         </SectionIntro>
         <ProgramsExplorer deepLink />
@@ -30,7 +30,7 @@ export default function EventsPage() {
 
       <section className="section flush wrap" aria-labelledby="all-events">
         <SectionRule />
-        <SectionIntro id="all-events" lead="Contests, mock OAs and interview week, often co-hosted with partner orgs.">
+        <SectionIntro id="all-events" lead="Weekly meetings first. Events and their registration open on Discord.">
           On the <span className="accent">calendar.</span>
         </SectionIntro>
         <EventsTabs label="All events" />
@@ -61,15 +61,15 @@ export default function EventsPage() {
         <SectionRule />
         <div className="duo" style={{ marginTop: 42 }}>
           <div className="duo-panel">
-            <h3 id="host-title">Co-host a contest.</h3>
-            <p>We run mock OAs with WiCS and mock interviews with SDA. Bring your members, we bring the problems and the leaderboard.</p>
+            <h3 id="host-title">Co-host an event.</h3>
+            <p>We co-host events with organizations like WiCS and SDA. Bring your members, we bring the problems.</p>
             <a className="button primary" href={`mailto:${links.email}`}>
               Email the officers <span className="arrow" aria-hidden="true">↗</span>
             </a>
           </div>
           <div className="duo-panel">
             <h3>Give a tech talk.</h3>
-            <p>Reach 900+ students who practice interviews every week. Sponsor a Code-A-Thon, run a workshop or join interview week.</p>
+            <p>Reach 900+ students who practice every week. Sponsor an event or run a workshop with us.</p>
             <a className="button ghost" href={`mailto:${links.email}?subject=Sponsorship`}>
               Talk sponsorship <span className="arrow" aria-hidden="true">↗</span>
             </a>

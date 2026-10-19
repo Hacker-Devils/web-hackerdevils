@@ -98,7 +98,7 @@ export function JoinTerminal() {
   const steps = [
     { title: "Join the Discord", body: "Announcements, weekly problems, room details.", href: links.discord },
     { title: "Register on Sun Devil Central", body: "Become an official member of the org.", href: links.sunDevilCentral },
-    { title: "Show up Wednesday", body: "6–7 PM, Tempe campus. Bring a laptop." },
+    { title: "Show up Wednesday", body: "6–7 PM, Tempe campus. Bring a laptop. Pizza’s on us." },
   ];
   return (
     <div className="terminal">
