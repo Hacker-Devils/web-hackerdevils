@@ -7,8 +7,7 @@ export default function Faq() {
   const [open, setOpen] = useState<Record<number, boolean>>({ 0: true });
 
   return (
-    <section className="t faq s7" aria-labelledby="faq-title">
-      <h2 id="faq-title">FAQ</h2>
+    <div className="faq">
       {faq.map((item, i) => {
         const isOpen = !!open[i];
         return (
@@ -21,7 +20,10 @@ export default function Faq() {
                 aria-controls={`faq-a-${i}`}
                 onClick={() => setOpen((o) => ({ ...o, [i]: !o[i] }))}
               >
-                {item.q}
+                <span className="mono" aria-hidden="true">
+                  Q.{String(i + 1).padStart(2, "0")}
+                </span>
+                <span>{item.q}</span>
                 <i aria-hidden="true">+</i>
               </button>
             </h3>
@@ -33,6 +35,6 @@ export default function Faq() {
           </div>
         );
       })}
-    </section>
+    </div>
   );
 }
