@@ -8,7 +8,7 @@ import { links, meetingSpec } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "Weekly practice, Code-A-Thons, a mock interview week each semester, and system design and GPU programming workshops at Hacker Devils.",
+    "Weekly LeetCode practice, system design every other week, Code-A-Thons, GPU programming and mock interview events, and collab workshops on backend engineering and inference.",
 };
 
 export default function EventsPage() {
@@ -17,7 +17,7 @@ export default function EventsPage() {
       <PageHeader
         title="Every week,"
         accent="every semester."
-        lead="Weekly practice, Code-A-Thons, a mock interview week each semester and technical workshops. Dates are announced on Discord first."
+        lead="LeetCode practice every Wednesday, system design every other week, events like Code-A-Thons, GPU programming and mock interviews, and collab workshops on backend engineering and inference. Dates are announced on Discord first."
       />
 
       <section className="section wrap" aria-labelledby="programs-title">

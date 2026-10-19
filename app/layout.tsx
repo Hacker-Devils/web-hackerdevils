@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: "%s · Hacker Devils",
   },
   description:
-    "Hacker Devils is the premier competitive coding organization at Arizona State University. Weekly practice, Code-A-Thons, mock interviews and technical workshops.",
+    "Hacker Devils is the premier competitive coding organization at Arizona State University. Weekly LeetCode practice, biweekly system design, Code-A-Thons, GPU programming, mock interviews and collab workshops on backend and inference.",
 };
 
 export const viewport: Viewport = {

@@ -17,7 +17,7 @@ const initials = (name: string) =>
 export default function AboutPage() {
   return (
     <>
-      <PageHeader title="Who we" accent="are." lead="A Fulton Schools club open to every ASU student, built around weekly practice, timed contests, mock interviews and technical workshops." />
+      <PageHeader title="Who we" accent="are." lead="A Fulton Schools club open to every ASU student, built around weekly LeetCode practice, biweekly system design, events and collab workshops." />
 
       <section className="section wrap" aria-labelledby="who">
         <SectionRule />
@@ -32,8 +32,8 @@ export default function AboutPage() {
               and Medium groups, and finish with a full solution review.
             </p>
             <p>
-              Around that core we run Code-A-Thons, mock interviews with partner organizations, and workshop series on system design and GPU
-              programming.
+              Around that core we run system design every other week, events like Code-A-Thons, GPU programming and a mock interview week, and
+              collab workshops on backend engineering and inference with partner organizations.
             </p>
           </div>
         </div>
