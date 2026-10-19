@@ -10,12 +10,16 @@ export const links = {
   email: "hckrdevils@gmail.com",
 } as const;
 
+/** How each social account reads on the site. */
+export const handles = {
+  discord: "discord.gg/bn3ax9hcpr",
+  instagram: "@asuhackerdevils",
+} as const;
+
 export const nav = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/programs", label: "Programs" },
   { href: "/events", label: "Events" },
-  { href: "/interviews", label: "Interviews" },
   { href: "/resources", label: "Resources" },
   { href: "/join", label: "Join" },
 ] as const;
@@ -63,10 +67,10 @@ export const programs: Program[] = [
   {
     id: "interviews",
     name: "Mock interviews",
-    when: "Ongoing",
+    when: "Once a semester",
     tone: "tint",
-    short: "AI-assisted practice on demand, plus live interviews with peers and officers.",
-    long: "Practice any time with an AI interviewer, then put it to the test in live 45-minute interviews with members and officers, followed by an honest debrief.",
+    short: "A dedicated mock interview week each semester, run like the real thing.",
+    long: "Once a semester we hold a mock interview week. Members interview with officers and partner organizations in 45-minute sessions run like the real thing, followed by an honest debrief. Dates are announced on Discord.",
     learn: ["Thinking out loud", "Clarifying requirements", "Behavioral storytelling", "Handling hints and follow-ups"],
   },
   {
@@ -114,7 +118,7 @@ export const events: { upcoming: EventItem[]; past: EventItem[] } = {
     { day: "Wed", month: "Weekly", title: "Weekly Meeting", detail: "Interview practice · 6–7 PM · Tempe", action: "RSVP", href: links.discord, highlight: true },
     { day: "TBA", month: "Fall", title: "Fall Code-A-Thon", detail: "Timed contest", action: "Details soon" },
     { day: "TBA", month: "Fall", title: "System Design Workshop", detail: "Workshop series", action: "Details soon" },
-    { day: "TBA", month: "Fall", title: "Mock Interview Night", detail: "With partner organizations", action: "Details soon" },
+    { day: "TBA", month: "Fall", title: "Mock Interview Week", detail: "One week · with partner organizations", action: "Details soon" },
   ],
   past: [
     { day: "15", month: "Apr", title: "WiCS × Hacker Devils Mock OA", detail: "With Women in Computer Science · 2026", action: "Recap" },
@@ -165,23 +169,6 @@ export const quote = {
   by: "Prathyush Vasa, former president",
 } as const;
 
-export const interviewFormats = {
-  ai: {
-    tag: "On demand",
-    name: "AI-assisted",
-    desc: "An AI interviewer asks follow-up questions, keeps time and gives written feedback on your approach, code and communication.",
-    points: ["Available any time", "Algorithms and system design", "Instant written feedback", "Unlimited reps"],
-    steps: ["Pick a track and difficulty", "Talk through your approach as you code", "Get a scored write-up with next steps"],
-  },
-  peer: {
-    tag: "Live",
-    name: "Peer & officer",
-    desc: "Live 45-minute interviews run like the real thing with members and officers, followed by an honest debrief.",
-    points: ["Real-time pressure", "Behavioral and technical rounds", "Held with WiCS and SDA", "Debrief after every session"],
-    steps: ["Request a slot below", "Get matched with an interviewer", "Interview, then debrief together"],
-  },
-} as const;
-
 export type Material = { label: "Slides" | "Notes" | "Problems" | "Code"; href?: string };
 export type Session = { title: string; desc: string; materials: Material[] };
 export type Track = { id: string; name: string; blurb: string; soon?: boolean; sessions: Session[] };
@@ -229,6 +216,21 @@ export const faq = [
   { q: "I’m not a CS major. Can I join?", a: "Yes. Hacker Devils is open to every ASU student regardless of major or year." },
   { q: "How do I become a member?", a: "Join our Discord and register on Sun Devil Central. Then show up on Wednesday." },
   { q: "What should I bring to a meeting?", a: "A laptop with any language you’re comfortable in. Python, Java and C++ are the most common." },
-  { q: "How do mock interviews work?", a: "Practice with the AI interviewer any time, or request a live 45-minute interview with a peer or officer on the Mock interviews page." },
+  { q: "How do mock interviews work?", a: "We hold a mock interview week once a semester. Sign-ups and dates go out on Discord a few weeks before. Interviews are 45 minutes with an officer or a partner org member, followed by a debrief." },
   { q: "Can my organization collaborate with Hacker Devils?", a: "Yes. Email hckrdevils@gmail.com with your idea. We regularly co-host with WiCS and SDA." },
+] as const;
+
+/** Label + value strip under the home page demo. */
+export const heroSpec = [
+  { label: "When", value: "Wednesdays, 6–7 PM" },
+  { label: "Where", value: "Tempe campus, ASU" },
+  { label: "Levels", value: "Easy + Medium groups" },
+  { label: "Cost", value: "Free. Any major, any year." },
+] as const;
+
+export const meetingSpec = [
+  { label: "Day", value: "Every Wednesday" },
+  { label: "Time", value: "6–7 PM Arizona time" },
+  { label: "Place", value: "Tempe campus · room posted on Discord" },
+  { label: "Bring", value: "A laptop and any language you like" },
 ] as const;
