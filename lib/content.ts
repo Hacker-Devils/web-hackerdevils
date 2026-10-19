@@ -141,7 +141,7 @@ export const team: { name: string; title: string; tier: Tier }[] = [
 
 export const partners = [
   { short: "WiCS", name: "Women in Computer Science", role: "Mock online assessments" },
-  { short: "SDA", name: "Software Developers Association", role: "Mock interviews" },
+  { short: "SoDA", name: "Software Developers Association", role: "Mock interviews" },
   { short: "FSE", name: "Ira A. Fulton Schools of Engineering", role: "Faculty support" },
 ] as const;
 
@@ -151,7 +151,7 @@ export const faq = [
   { q: "How do I become a member?", a: "Join our Discord and register on Sun Devil Central. Then show up on Wednesday." },
   { q: "What should I bring to a meeting?", a: "A laptop with any language you’re comfortable in. Python, Java and C++ are the most common." },
   { q: "Is there food?", a: "Yes. There’s free pizza at every meeting." },
-  { q: "Can my organization collaborate with Hacker Devils?", a: "Yes. Email hckrdevils@gmail.com with your idea. We regularly co-host with WiCS and SDA." },
+  { q: "Can my organization collaborate with Hacker Devils?", a: "Yes. Email hckrdevils@gmail.com with your idea. We regularly co-host with WiCS and SoDA." },
 ] as const;
 
 /** Label + value strip under the home page demo. */

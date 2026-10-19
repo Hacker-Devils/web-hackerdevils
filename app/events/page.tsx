@@ -62,7 +62,7 @@ export default function EventsPage() {
         <div className="duo" style={{ marginTop: 42 }}>
           <div className="duo-panel">
             <h3 id="host-title">Co-host an event.</h3>
-            <p>We co-host events with organizations like WiCS and SDA. Bring your members, we bring the problems.</p>
+            <p>We co-host events with organizations like WiCS and SoDA. Bring your members, we bring the problems.</p>
             <a className="button primary" href={`mailto:${links.email}`}>
               Email the officers <span className="arrow" aria-hidden="true">↗</span>
             </a>
