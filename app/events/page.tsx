@@ -8,7 +8,7 @@ import { links, meetingSpec } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Events",
   description:
-    "LeetCode every Wednesday, system design every other week and GPU programming sessions at Hacker Devils, plus a few events each semester.",
+    "Technical interview prep at Hacker Devils: LeetCode every Wednesday and system design every other week, with GPU programming coming soon.",
 };
 
 export default function EventsPage() {
@@ -17,12 +17,12 @@ export default function EventsPage() {
       <PageHeader
         title="Every week,"
         accent="every semester."
-        lead="LeetCode every Wednesday, system design every other week and GPU programming sessions, plus a few events each semester. Dates are announced on Discord first."
+        lead="LeetCode every Wednesday and system design every other week, with GPU programming coming soon. Dates are announced on Discord first."
       />
 
       <section className="section wrap" aria-labelledby="programs-title">
         <SectionRule />
-        <SectionIntro id="programs-title" lead="Free and open to every ASU student, with free pizza at every meeting.">
+        <SectionIntro id="programs-title" lead="Built for tech majors, open to every ASU student. Free pizza at every meeting.">
           What we <span className="accent">run.</span>
         </SectionIntro>
         <ProgramsExplorer deepLink />

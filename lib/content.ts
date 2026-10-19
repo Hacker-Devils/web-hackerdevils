@@ -63,9 +63,10 @@ export const programs: Program[] = [
   {
     id: "gpu",
     name: "GPU programming",
-    when: "Recurring sessions",
+    when: "Coming soon",
+    soon: true,
     short: "CUDA from first principles: threads, memory and the kernels behind ML.",
-    long: "Learn to think in parallel. Sessions start with your first CUDA kernel and work up to shared-memory tiling and the optimizations that power modern machine learning.",
+    long: "Coming soon. Learn to think in parallel: sessions will start with your first CUDA kernel and work up to shared-memory tiling and the optimizations that power modern machine learning.",
     learn: ["Threads, blocks and grids", "The memory hierarchy", "Coalescing and shared memory", "Profiling kernels"],
   },
 ];
@@ -90,7 +91,7 @@ export const events: { upcoming: EventItem[]; past: EventItem[] } = {
   upcoming: [
     { date: "Wednesdays", title: "LeetCode practice", detail: "Easy, Medium, sometimes Hard · 6–7 PM · free pizza", calendar: "weekly", highlight: true },
     { date: "Biweekly", title: "System design", detail: "Every other week · room on Discord", href: links.discord, action: "Discord" },
-    { date: "Recurring", title: "GPU programming", detail: "CUDA sessions · dates on Discord", href: links.discord, action: "Discord" },
+    { date: "Soon", title: "GPU programming", detail: "CUDA sessions", status: "Coming soon", href: links.discord, action: "Get notified" },
     {
       date: "Nov 1–7",
       title: "Mock Interview Week",
@@ -147,7 +148,7 @@ export const partners = [
 
 export const faq = [
   { q: "Do I need competitive programming experience?", a: "No. The Easy group is built for people who have never done an interview problem. Move up to Medium when you’re ready." },
-  { q: "I’m not a CS major. Can I join?", a: "Yes. Hacker Devils is open to every ASU student regardless of major or year." },
+  { q: "I’m not a CS major. Can I join?", a: "Yes. We focus on technical interviews, so the content is built for tech majors, but every ASU student is welcome." },
   { q: "How do I become a member?", a: "Join our Discord and register on Sun Devil Central. Then show up on Wednesday." },
   { q: "What should I bring to a meeting?", a: "A laptop with any language you’re comfortable in. Python, Java and C++ are the most common." },
   { q: "Is there food?", a: "Yes. There’s free pizza at every meeting." },
