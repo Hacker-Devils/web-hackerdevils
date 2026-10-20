@@ -58,7 +58,7 @@ export function JoinBand() {
           Show up Wednesday.
           <br /> <span className="accent">Leave sharper.</span>
         </h2>
-        <p>Join 900+ Sun Devils getting interview ready. Free, open to every major, no experience required.</p>
+        <p>Join 900+ Sun Devils preparing for technical interviews. Built for tech majors, open to every major. No experience required.</p>
         <Socials />
       </div>
       <JoinTerminal />
@@ -98,7 +98,7 @@ export function JoinTerminal() {
   const steps = [
     { title: "Join the Discord", body: "Announcements, weekly problems, room details.", href: links.discord },
     { title: "Register on Sun Devil Central", body: "Become an official member of the org.", href: links.sunDevilCentral },
-    { title: "Show up Wednesday", body: "6–7 PM, Tempe campus. Bring a laptop." },
+    { title: "Show up Wednesday", body: "6–7 PM, Tempe campus. Bring a laptop. Pizza’s on us." },
   ];
   return (
     <div className="terminal">

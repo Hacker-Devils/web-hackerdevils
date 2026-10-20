@@ -4,6 +4,7 @@ import EventsTabs from "@/components/EventsTabs";
 import ProgramsExplorer from "@/components/ProgramsExplorer";
 import SessionDemo from "@/components/SessionDemo";
 import { DiscordIcon } from "@/components/BrandIcons";
+import Pizza from "@/components/Pizza";
 import { JoinBand, Metrics, SectionRule, SectionIntro } from "@/components/Bands";
 import { heroSpec, links, meetingSpec, wednesday } from "@/lib/content";
 
@@ -17,7 +18,7 @@ export default function HomePage() {
             <br /> <span className="accent">Programming Club.</span>
           </h1>
           <p>
-            Hacker Devils is a Fulton Schools student organization that prepares Sun Devils for coding interviews and online assessments,
+            Hacker Devils is a Fulton Schools student organization that prepares Sun Devils for technical interviews and online assessments,
             while teaching the programming fundamentals that matter in industry.
           </p>
           <div className="hero-actions">
@@ -51,13 +52,12 @@ export default function HomePage() {
           id="programs-title"
           lead={
             <>
-              From weekly sets to semester contests.
-              <br /> Pick what you need, use all of it.
+              LeetCode every Wednesday and system design every other week.
+              GPU programming is coming soon.
             </>
           }
         >
-          Everything we run,
-          <br /> <span className="accent">in one place.</span>
+          Learn and <span className="accent">prepare.</span>
         </SectionIntro>
         <ProgramsExplorer />
       </section>
@@ -71,7 +71,7 @@ export default function HomePage() {
               <br /> <span className="accent">Every week.</span>
             </h2>
             <p>
-              Classes teach you how to program. Interviews test whether you can solve an unseen problem in 45 minutes with someone watching.
+              Classes teach you how to program. Technical interviews test whether you can solve an unseen problem in 45 minutes with someone watching.
               Wednesdays close that gap.
             </p>
             <dl className="spec-list">
@@ -97,14 +97,34 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section flush wrap" aria-labelledby="pizza-title">
+        <SectionRule />
+        <div className="pizza-grid">
+          <div className="pizza-board">
+            <Pizza />
+          </div>
+          <div className="pizza-copy">
+            <h2 id="pizza-title">
+              Free pizza.
+              <br /> <span className="accent">Every meeting.</span>
+            </h2>
+            <p>Every Hacker Devils meeting comes with free pizza. Come for the problems, stay for a slice. No sign-up, no catch.</p>
+            <a className="button primary" href={links.discord}>
+              <DiscordIcon className="brand-glyph" />
+              Find this week’s room <span className="arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section className="section flush wrap" aria-labelledby="events-title">
         <SectionRule />
         <SectionIntro
           id="events-title"
           lead={
             <>
-              Code-A-Thons, mock OAs and interview nights,
-              <br /> often with WiCS and SDA.
+              Weekly meetings, plus a few events
+              <br /> each semester.
             </>
           }
         >

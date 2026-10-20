@@ -11,7 +11,7 @@ export default function SiteFooter() {
         <div className="footer-grid">
           <div>
             <Logo />
-            <p>The competitive coding and interview prep club at Arizona State University.</p>
+            <p>The competitive coding and technical interview prep club at Arizona State University.</p>
           </div>
           <nav aria-label="Club">
             <h2>Club</h2>
