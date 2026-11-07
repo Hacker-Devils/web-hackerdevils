@@ -27,8 +27,9 @@ components/
   brand/             Logo, social icons, pizza drawing.
   sections/          Page sections built from ui/ and content/.
 content/             All copy and data, one file per topic.
-lib/calendar.ts      Meeting schedule and Google Calendar links.
+lib/calendar.ts      Next-meeting logic, Google Calendar links and .ics files.
 public/brand/        Original logo file.
+public/slides/       Meeting slides linked from event recaps.
 ```
 
 Each layer only depends on the ones below it:
