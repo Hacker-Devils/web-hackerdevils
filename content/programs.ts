@@ -12,16 +12,16 @@ export type Program = {
 export const programs: Record<ProgramId, Program> = {
   practice: {
     id: "practice",
-    name: "LeetCode",
-    when: "Every Wednesday",
+    name: "LeetCode sections",
+    when: "Easy and Medium, on alternating Wednesdays",
     description:
-      "Officers bring a problem set modeled on real online assessments. Join the Easy or Medium group, take a swing at the occasional Hard, and finish with a walkthrough of solutions, complexity and edge cases.",
+      "Officers bring a problem set modeled on real online assessments, and every meeting ends with a walkthrough of solutions, complexity and edge cases. Start with Easy if interview problems are new to you.",
     topics: ["Arrays, strings and hashing", "Two pointers and sliding window", "Trees, graphs and BFS/DFS", "Dynamic programming patterns"],
   },
   "system-design": {
     id: "system-design",
     name: "System design",
-    when: "Every other week",
+    when: "Every other Wednesday, alongside the Easy section",
     description: "We take one real system, such as a URL shortener, a chat app or a news feed, and design it end to end with a repeatable interview framework.",
     topics: ["Requirements and estimation", "APIs and data models", "Caching, queues and load balancing", "Trade-off discussions"],
   },
