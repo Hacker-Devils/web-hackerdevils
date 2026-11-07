@@ -1,58 +1,79 @@
+import { upcomingEvents, type UpcomingEvent } from "@/content/events";
 import { links } from "@/content/site";
 
-/**
- * Weekly meeting: Wednesdays 6–7 PM in Arizona.
- * Arizona stays on MST (UTC-7) all year, so that is always Thursday 01:00–02:00 UTC.
- */
-export const MEETING_UTC_DAY = 4;
-export const MEETING_UTC_HOUR = 1;
+/** Meetings run 6 to 7 PM in Arizona, which stays on UTC-7 all year. */
 export const MEETING_MS = 60 * 60 * 1000;
-const DAY_MS = 864e5;
+export const meetingStart = (date: string) => Date.parse(`${date}T18:00:00-07:00`);
 
-/** Start of the next weekly meeting after `now` (epoch ms). */
-export function nextMeeting(now: number) {
-  const n = new Date(now);
-  let t = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate(), MEETING_UTC_HOUR, 0, 0);
-  while (new Date(t).getUTCDay() !== MEETING_UTC_DAY || t <= now) t += DAY_MS;
-  return t;
+export type NextMeeting = { date: string; start: number; sessions: UpcomingEvent[] };
+
+/** The earliest meeting that hasn't finished by `now`, with everything running at that hour. */
+export function nextMeeting(now: number): NextMeeting | null {
+  const dates = upcomingEvents.flatMap((event) => event.dates ?? []).sort();
+  const date = dates.find((d) => meetingStart(d) + MEETING_MS > now);
+  if (!date) return null;
+  return { date, start: meetingStart(date), sessions: upcomingEvents.filter((event) => event.dates?.includes(date)) };
 }
 
-/** 20261022T010000Z */
+/** Whether an event has anything left to attend. Events with no date stay listed until they get one. */
+export function isUpcoming(event: UpcomingEvent, now: number) {
+  if (event.dates) return event.dates.some((d) => meetingStart(d) + MEETING_MS > now);
+  if (event.session) return Date.parse(`${event.session.date}T${event.session.end}:00-07:00`) > now;
+  return true;
+}
+
+export const hasCalendar = (event: UpcomingEvent) => Boolean(event.dates?.length || event.session);
+
+/** First occurrence of an event, in epoch ms. */
+function firstSpan(event: UpcomingEvent) {
+  if (event.session) {
+    const { date, start, end } = event.session;
+    return { start: Date.parse(`${date}T${start}:00-07:00`), end: Date.parse(`${date}T${end}:00-07:00`) };
+  }
+  if (!event.dates?.length) return null;
+  const start = meetingStart(event.dates[0]);
+  return { start, end: start + MEETING_MS };
+}
+
+/** 20261119T010000Z */
 const stamp = (ms: number) => new Date(ms).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
 
-/**
- * Google Calendar "create event" link for the weekly meeting, repeating every Wednesday.
- * `ctz` pins the event to Arizona time so it never drifts with daylight saving elsewhere.
- */
-export function googleCalendarUrl(start: number) {
-  const params = new URLSearchParams({
-    action: "TEMPLATE",
-    text: "Hacker Devils · Weekly Meeting",
-    dates: `${stamp(start)}/${stamp(start + MEETING_MS)}`,
-    ctz: "America/Phoenix",
-    recur: "RRULE:FREQ=WEEKLY;BYDAY=WE",
-    location: "ASU Tempe campus",
-    details: `Weekly LeetCode practice in Easy and Medium groups, with a solution review. Free pizza. Bring a laptop.\n\nRoom details and announcements: ${links.discord}`,
-  });
+const summary = (event: UpcomingEvent) => `Hacker Devils · ${event.title}`;
+const place = (event: UpcomingEvent) => (event.room ? `${event.room}, ASU Tempe campus` : "ASU Tempe campus");
+const description = (event: UpcomingEvent) =>
+  `${event.detail}${event.dates ? " Free pizza. Bring a laptop." : ""}\n\nAnnouncements: ${links.discord}`;
+
+/** Times stay in UTC, so the repeat rule can't name a weekday: 6 PM Wednesday is already Thursday in UTC. */
+const repeatRule = (event: UpcomingEvent) =>
+  event.dates && event.dates.length > 1 ? `RRULE:FREQ=WEEKLY;INTERVAL=2;COUNT=${event.dates.length}` : null;
+
+export function googleCalendarUrl(event: UpcomingEvent) {
+  const params = new URLSearchParams({ action: "TEMPLATE", text: summary(event), ctz: "America/Phoenix", location: place(event), details: description(event) });
+  const span = firstSpan(event);
+  if (span) {
+    params.set("dates", `${stamp(span.start)}/${stamp(span.end)}`);
+    const rule = repeatRule(event);
+    if (rule) params.set("recur", rule);
+  }
   return `https://calendar.google.com/calendar/render?${params}`;
 }
 
-const ymd = (iso: string, addDays = 0) => {
-  const d = new Date(`${iso}T00:00:00Z`);
-  d.setUTCDate(d.getUTCDate() + addDays);
-  return d.toISOString().slice(0, 10).replace(/-/g, "");
-};
+export const icsPath = (event: UpcomingEvent) => `/calendar/${event.id}.ics`;
 
-/** Google Calendar link for an all-day event spanning `start`–`end` (inclusive, YYYY-MM-DD). */
-export function allDayCalendarUrl({ title, start, end, details }: { title: string; start: string; end: string; details: string }) {
-  const params = new URLSearchParams({
-    action: "TEMPLATE",
-    text: title,
-    // Google treats the end date of an all-day range as exclusive.
-    dates: `${ymd(start)}/${ymd(end, 1)}`,
-    ctz: "America/Phoenix",
-    location: "ASU Tempe campus",
-    details: `${details}\n\nDetails and registration: ${links.discord}`,
-  });
-  return `https://calendar.google.com/calendar/render?${params}`;
+const icsText = (text: string) => text.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+
+/** iCalendar wraps long lines at 75 characters, marking each continuation with a leading space. */
+const fold = (line: string) => line.match(/.{1,73}/g)?.join("\r\n ") ?? line;
+
+/** An iCalendar file for Apple Calendar, Outlook and anything else that opens one. */
+export function icsFile(event: UpcomingEvent) {
+  const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Hacker Devils//Events//EN", "CALSCALE:GREGORIAN", "BEGIN:VEVENT", `UID:${event.id}@hackerdevils`];
+  const span = firstSpan(event);
+  if (span) {
+    lines.push(`DTSTAMP:${stamp(span.start)}`, `DTSTART:${stamp(span.start)}`, `DTEND:${stamp(span.end)}`);
+    const rule = repeatRule(event);
+    if (rule) lines.push(rule);
+  }
+  lines.push(`SUMMARY:${icsText(summary(event))}`, `LOCATION:${icsText(place(event))}`, `DESCRIPTION:${icsText(description(event))}`, "END:VEVENT", "END:VCALENDAR");
+  return lines.map(fold).join("\r\n") + "\r\n";
 }
