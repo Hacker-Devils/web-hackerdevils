@@ -2,10 +2,10 @@
    1. Tokens  2. Base  3. Layout  4. UI components  5. Site chrome  6. Sections  7. Motion
 
    Decisions:
-   - Colour: ASU maroon and gold from the club's logo. Neutrals carry everything else.
-   - Motif: the gold slash from the logo's </>, on the hero and in front of section titles.
+   - Colour: near-black by default, with maroon and gold from the club's logo. Gold marks what to act on; maroon carries identity.
+   - Surfaces: one raised tone, hairline borders and a 1px top highlight, so structure reads without heavy shadows.
    - Type: Sora for its wide, confident shapes. Plex Mono only where digits or code must align.
-   - Shape: 6px radius and flat surfaces. Hierarchy comes from size and colour bands, not shadows. */
+   - Shape: 8px on controls, 14px on panels, so nesting looks deliberate. */
 
 /* ---------- 1. Tokens ---------- */
 :root {
@@ -15,63 +15,77 @@
   --gold-hover: #ffd65c;
   --on-dark: #ffffff;
   --on-gold: #17141a;
-  --code-bg: #17141a;
+  --code-bg: #141216;
   --code-ink: #f4f1ec;
   --code-muted: #a59fab;
 
   --sans: var(--font-sora), system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono: var(--font-plex-mono), ui-monospace, "SF Mono", Menlo, monospace;
 
-  --radius: 6px;
+  --radius: 8px;
+  --radius-panel: 14px;
   --gutter: 20px;
-  --band: 56px;
+  --band: 64px;
 
   /* Dark theme */
-  --bg: #0b0a0c;
-  --soft: #1d1a20;
-  --ink: #f4f1ec;
-  --ink-muted: #a59fab;
-  --line: #2e2a33;
-  --control: #7a7380;
+  --bg: #18161b;
+  --soft: #1d1b21;
+  --raised: #242228;
+  --raised-hover: #2c2931;
+  --ink: #f5f2ee;
+  --ink-muted: #b4aeba;
+  --line: #36323c;
+  --control: #7d7783;
   --accent-text: #ffc627;
   --focus: #ffc627;
   --logo-maroon: #c2385f;
-  --button-bg: var(--maroon);
-  --button-bg-hover: var(--maroon-hover);
-  --button-ink: var(--on-dark);
+  --highlight: rgb(255 255 255 / 0.05);
+  --header-bg: rgb(24 22 27 / 0.84);
+  --hero-wash: color-mix(in srgb, var(--maroon) 34%, var(--bg));
+  --button-bg: var(--gold);
+  --button-bg-hover: var(--gold-hover);
+  --button-ink: var(--on-gold);
   color-scheme: dark;
 }
 
 :root[data-theme="light"] {
   --bg: #faf8f5;
-  --soft: #f1ede8;
+  --soft: #f3efe9;
+  --raised: #ffffff;
+  --raised-hover: #f7f3ee;
   --ink: #17141a;
   --ink-muted: #5d5763;
-  --line: #e0dad2;
+  --line: #e2dcd4;
   --control: #8f877f;
   --accent-text: #8c1d40;
   --focus: #8c1d40;
   --logo-maroon: #8d133a;
+  --highlight: rgb(255 255 255 / 0.8);
+  --header-bg: rgb(250 248 245 / 0.86);
+  --hero-wash: color-mix(in srgb, var(--maroon) 12%, var(--bg));
+  --button-bg: var(--maroon);
+  --button-bg-hover: var(--maroon-hover);
+  --button-ink: var(--on-dark);
   color-scheme: light;
 }
 
-/* Colour bands redefine the tokens, so anything placed inside adapts on its own. */
+/* Colour panels redefine the tokens, so anything placed inside adapts on its own. */
 .section--soft {
   background: var(--soft);
+  border-block: 1px solid var(--line);
 }
 
-.hero,
 .section--maroon {
   --ink: #ffffff;
   --ink-muted: #f6e4ea;
-  --line: #b5506f;
+  --line: rgb(255 255 255 / 0.22);
   --control: #f6e4ea;
+  --raised-hover: rgb(255 255 255 / 0.08);
   --accent-text: var(--gold);
   --focus: var(--gold);
   --button-bg: var(--gold);
   --button-bg-hover: var(--gold-hover);
   --button-ink: var(--on-gold);
-  background: var(--maroon);
   color: var(--ink);
 }
 
@@ -84,7 +98,6 @@
   --button-bg: #17141a;
   --button-bg-hover: #3a3440;
   --button-ink: #ffffff;
-  background: var(--gold);
   color: var(--ink);
 }
 
@@ -112,6 +125,7 @@ body {
 h1,
 h2,
 h3,
+h4,
 p,
 ul,
 ol,
@@ -130,24 +144,32 @@ ol {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.025em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(2.5rem, 7.2vw, 5rem);
-  line-height: 1.05;
+  font-size: clamp(2.375rem, 5.4vw, 4.25rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
 }
 
 h2 {
-  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+  font-size: clamp(1.625rem, 3vw, 2.25rem);
+  letter-spacing: -0.028em;
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
+}
+
+h4 {
+  font-size: 1rem;
+  letter-spacing: -0.012em;
 }
 
 a {
@@ -187,7 +209,7 @@ summary {
   position: fixed;
   top: -100px;
   left: 16px;
-  z-index: 10;
+  z-index: 40;
   padding: 12px 16px;
   background: var(--gold);
   color: var(--on-gold);
@@ -195,6 +217,15 @@ summary {
 
 .skip-link:focus {
   top: 12px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* ---------- 3. Layout ---------- */
@@ -210,12 +241,15 @@ summary {
 }
 
 /* Grid items would otherwise grow to fit wide content such as code blocks. */
+.hero-grid > *,
 .program-flagship > *,
 .program-pair > *,
 .meeting-grid > *,
 .pizza-grid > *,
 .join-grid > *,
-.mission > * {
+.mission > *,
+.event-list li > *,
+.recap-group > * {
   min-width: 0;
 }
 
@@ -224,15 +258,17 @@ summary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  min-height: 48px;
-  padding: 10px 20px;
+  gap: 9px;
+  min-height: 46px;
+  padding: 10px 18px;
   border: 1px solid transparent;
   border-radius: var(--radius);
   font-size: 0.9375rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   line-height: 1.3;
   text-decoration: none;
+  white-space: nowrap;
   transition: background-color 0.15s, border-color 0.15s, transform 0.1s;
 }
 
@@ -256,12 +292,12 @@ summary {
 
 .button--secondary:hover {
   border-color: var(--ink);
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  background: var(--raised-hover);
 }
 
 .button--small {
   min-height: 44px;
-  padding: 8px 14px;
+  padding: 8px 13px;
   font-size: 0.875rem;
 }
 
@@ -282,20 +318,12 @@ summary {
 }
 
 .section-heading {
-  max-width: 720px;
-  margin-bottom: 36px;
-}
-
-/* The logo's slash, in front of every section title. */
-.section-heading h2::before {
-  content: "/";
-  margin-right: 0.3em;
-  color: var(--accent-text);
-  font-weight: 400;
+  max-width: 680px;
+  margin-bottom: 32px;
 }
 
 .section-heading p {
-  margin-top: 14px;
+  margin-top: 12px;
   color: var(--ink-muted);
   font-size: 1.0625rem;
 }
@@ -305,15 +333,15 @@ summary {
 }
 
 .page-heading {
-  padding-block: 56px 16px;
+  padding-block: 64px 24px;
 }
 
-.page-heading:has(+ .section--maroon) {
-  padding-bottom: 48px;
+.page-heading:only-child {
+  padding-block: 96px;
 }
 
 .page-heading h1 {
-  font-size: clamp(2.25rem, 6vw, 4rem);
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
 }
 
 .page-heading p {
@@ -323,7 +351,14 @@ summary {
   font-size: 1.125rem;
 }
 
-.page-heading .button {
+.page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.page-heading > .container > .button {
   margin-top: 28px;
 }
 
@@ -331,8 +366,12 @@ summary {
   display: grid;
   grid-template-columns: 72px minmax(0, 1fr);
   gap: 12px;
-  padding-block: 12px;
+  padding-block: 13px;
   border-top: 1px solid var(--line);
+}
+
+.fact-list > div:last-child {
+  border-bottom: 1px solid var(--line);
 }
 
 .fact-list dt {
@@ -342,10 +381,16 @@ summary {
 .code-block {
   overflow-x: auto;
   padding: 18px 20px;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--code-bg);
   color: var(--code-ink);
   font: 400 0.8125rem/1.8 var(--mono);
+}
+
+/* Browsers give <code> their generic monospace, which would override Plex Mono. */
+.code-block code {
+  font: inherit;
 }
 
 .code-line {
@@ -369,7 +414,7 @@ summary {
   justify-content: space-between;
   align-items: center;
   gap: 16px;
-  min-height: 56px;
+  min-height: 60px;
   padding-block: 12px;
   font-weight: 600;
   list-style: none;
@@ -400,6 +445,54 @@ summary {
   max-width: 64ch;
   padding-bottom: 18px;
   color: var(--ink-muted);
+}
+
+/* Add to calendar menu */
+.calendar-menu {
+  position: relative;
+}
+
+.calendar-menu summary {
+  list-style: none;
+}
+
+.calendar-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.calendar-menu[open] summary {
+  border-color: var(--ink);
+  background: var(--raised-hover);
+}
+
+.calendar-options {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 20;
+  display: grid;
+  width: 224px;
+  padding: 5px;
+  border: 1px solid var(--control);
+  border-radius: var(--radius);
+  background: var(--raised);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.35); /* Marks the one element that floats above the page. */
+}
+
+.calendar-options a {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 10px;
+  border-radius: 5px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.calendar-options a:hover {
+  background: var(--raised-hover);
+  color: var(--accent-text);
 }
 
 /* ---------- 5. Site chrome ---------- */
@@ -441,18 +534,20 @@ summary {
   grid-column: 1 / -1;
   grid-row: 2;
   display: flex;
-  justify-content: space-between;
-  margin-inline: -10px;
+  gap: 20px;
+  margin-inline: -4px;
 }
 
 .main-nav a {
   display: flex;
   align-items: center;
   min-height: 44px;
-  padding-inline: 10px;
+  padding-inline: 4px;
   color: var(--ink-muted);
   font-size: 0.9375rem;
+  font-weight: 500;
   text-decoration: none;
+  transition: color 0.15s;
 }
 
 .main-nav a:hover {
@@ -461,11 +556,7 @@ summary {
 
 .main-nav a[aria-current="page"] {
   color: var(--ink);
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: var(--gold);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 6px;
+  box-shadow: inset 0 -2px 0 var(--gold);
 }
 
 .site-header-actions {
@@ -483,13 +574,16 @@ summary {
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--control);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  transition: background-color 0.15s;
+  color: var(--ink-muted);
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .theme-toggle:hover {
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  border-color: var(--control);
+  background: var(--raised-hover);
+  color: var(--ink);
 }
 
 .theme-toggle:active {
@@ -503,7 +597,7 @@ summary {
 }
 
 .site-footer {
-  padding-block: 48px 28px;
+  padding-block: 56px 28px;
   border-top: 1px solid var(--line);
 }
 
@@ -533,45 +627,43 @@ summary {
   align-items: center;
   gap: 10px;
   min-height: 44px;
+  color: var(--ink-muted);
   text-decoration: none;
+  transition: color 0.15s;
 }
 
 .site-footer-links a:hover {
-  color: var(--accent-text);
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  color: var(--ink);
 }
 
 .site-footer-legal {
-  margin-top: 28px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
   color: var(--ink-muted);
   font-size: 0.875rem;
 }
 
 /* ---------- 6. Sections ---------- */
 
-/* Home hero */
+/* Home hero. The maroon wash fades into the page, so the brand colour frames the headline without a heavy block. */
 .hero {
-  position: relative;
-  overflow: hidden;
-  padding-block: 56px;
+  padding-block: 56px 64px;
+  background: linear-gradient(180deg, var(--hero-wash), var(--bg) 92%);
 }
 
-.hero .container {
-  position: relative;
+.hero-grid {
+  display: grid;
+  gap: 40px;
 }
 
 .hero em {
-  color: var(--gold);
+  color: var(--accent-text);
   font-style: normal;
 }
 
-.hero h1 {
-  max-width: 13em;
-}
-
 .hero-lead {
-  max-width: 620px;
+  max-width: 600px;
   margin-top: 22px;
   font-size: 1.0625rem;
 }
@@ -583,26 +675,150 @@ summary {
   margin-top: 30px;
 }
 
-.hero-facts {
-  display: grid;
-  gap: 2px;
-  margin-top: 30px;
+/* The next meeting: the one piece of live information on the page. */
+.next-card {
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--raised);
+  box-shadow: inset 0 1px 0 var(--highlight);
+}
+
+.next-card h2 {
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.next-date {
+  margin-top: 8px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.next-time {
+  margin-top: 4px;
+  color: var(--ink-muted);
+}
+
+.next-live {
+  margin-top: 20px;
+  color: var(--accent-text);
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
-.hero-slash {
-  display: none;
-  position: absolute;
-  inset-block: 0;
-  right: 3%;
-  width: 26%;
-  height: 100%;
+.next-empty {
+  margin-block: 8px 20px;
+  color: var(--ink-muted);
 }
 
-.hero-slash path {
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 9;
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 20px;
+  border-block: 1px solid var(--line);
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+}
+
+.countdown > div {
+  padding-block: 12px;
+  text-align: center;
+}
+
+.countdown > div + div {
+  border-left: 1px solid var(--line);
+}
+
+.countdown b {
+  display: block;
+  color: var(--ink);
+  font: 400 clamp(1.5rem, 3vw, 1.875rem) / 1.2 var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
+}
+
+.next-sessions li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  padding-top: 16px;
+}
+
+.next-sessions strong {
+  display: block;
+  font-weight: 600;
+}
+
+.next-sessions span {
+  color: var(--ink-muted);
+  font: 400 0.8125rem/1.5 var(--mono);
+}
+
+/* Code-A-Thon: the featured event, right below the hero while it's upcoming. */
+.feature {
+  display: grid;
+  gap: 28px;
+  padding: 28px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--raised);
+  box-shadow: inset 0 1px 0 var(--highlight);
+}
+
+.feature > * {
+  min-width: 0;
+}
+
+.feature h2 {
+  font-size: clamp(2rem, 4.6vw, 3.25rem);
+  letter-spacing: -0.035em;
+  line-height: 1.06;
+}
+
+.feature-lead {
+  max-width: 34em;
+  margin-top: 14px;
+  font-size: 1.125rem;
+}
+
+.feature-lead em {
+  color: var(--accent-text);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.feature-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.feature .calendar-options {
+  right: auto;
+  left: 0;
+}
+
+@media (min-width: 640px) {
+  .feature {
+    padding: 40px;
+  }
+}
+
+@media (min-width: 960px) {
+  .feature {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 56px;
+    align-items: center;
+    padding: 48px;
+  }
 }
 
 /* Programs */
@@ -611,11 +827,11 @@ summary {
 }
 
 .program-copy h3 {
-  font-size: 1.5rem;
+  font-size: 1.375rem;
 }
 
 .program-flagship .program-copy h3 {
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-size: clamp(1.5rem, 2.6vw, 1.875rem);
 }
 
 .program-copy .program-when {
@@ -633,17 +849,14 @@ summary {
 }
 
 .program-topics li {
-  padding-block: 8px;
+  padding-block: 9px;
   border-top: 1px solid var(--line);
+  font-size: 0.9375rem;
 }
 
-.program-actions {
+.program-actions,
+.program-link {
   margin-top: 20px;
-}
-
-.program-copy .text-link {
-  display: inline-block;
-  margin-top: 12px;
 }
 
 .program-flagship {
@@ -653,8 +866,20 @@ summary {
 
 .program-pair {
   display: grid;
-  gap: 48px;
-  margin-top: 56px;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.program-pair > article {
+  padding: 16px 16px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--raised);
+  box-shadow: inset 0 1px 0 var(--highlight);
+}
+
+.program-pair .program-copy {
+  padding-inline: 8px;
 }
 
 .program-pair .figure {
@@ -663,32 +888,41 @@ summary {
 
 .problem-panel {
   min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--raised);
+  box-shadow: inset 0 1px 0 var(--highlight);
 }
 
 .problem-picker {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
+  gap: 4px;
+  padding: 4px;
+  border-radius: var(--radius);
+  background: var(--soft);
 }
 
 .problem-picker button {
-  min-height: 64px;
+  min-height: 60px;
   padding: 8px 10px;
-  border: 1px solid var(--control);
-  border-radius: var(--radius);
+  border-radius: 5px;
+  color: var(--ink-muted);
   font-size: 0.8125rem;
   line-height: 1.3;
   text-align: left;
-  transition: background-color 0.15s;
+  transition: background-color 0.15s, color 0.15s;
 }
 
 .problem-picker strong {
   display: block;
+  color: var(--ink);
   font-size: 0.9375rem;
 }
 
 .problem-picker button:hover {
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  background: var(--raised-hover);
 }
 
 .problem-picker button:active {
@@ -696,8 +930,11 @@ summary {
 }
 
 .problem-picker button[aria-pressed="true"] {
-  border-color: var(--maroon);
   background: var(--maroon);
+  color: #f6e4ea;
+}
+
+.problem-picker button[aria-pressed="true"] strong {
   color: var(--on-dark);
 }
 
@@ -773,43 +1010,69 @@ summary {
   background: var(--gold);
 }
 
-/* Weekly meeting */
+/* Meetings */
+.rotation {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 44px;
+}
+
+.rotation article {
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--raised);
+  box-shadow: inset 0 1px 0 var(--highlight);
+}
+
+.rotation h3 {
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.rotation li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 1.25rem;
+}
+
+.rotation strong {
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.rotation li span {
+  flex: none;
+  color: var(--accent-text);
+  font: 400 0.875rem/1.5 var(--mono);
+}
+
+.rotation p {
+  margin-top: 14px;
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+}
+
 .meeting-grid {
   display: grid;
   gap: 36px;
-}
-
-.countdown {
-  margin-bottom: 24px;
-}
-
-.countdown-digits {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  margin-top: 4px;
-  color: var(--ink-muted);
-}
-
-.countdown-digits b {
-  color: var(--ink);
-  font: 400 clamp(1.75rem, 5vw, 3.25rem) / 1.1 var(--mono);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.04em;
-}
-
-.countdown-live {
-  margin-bottom: 24px;
-  font-size: 1.5rem;
-  font-weight: 600;
 }
 
 .agenda li {
   display: grid;
   grid-template-columns: 48px minmax(0, 1fr);
   gap: 14px;
-  padding-block: 16px;
-  border-top: 1px solid var(--control);
+  padding-block: 14px;
+  border-top: 1px solid var(--line);
+}
+
+.agenda li:last-child {
+  border-bottom: 1px solid var(--line);
 }
 
 .agenda time {
@@ -820,7 +1083,7 @@ summary {
 }
 
 .agenda h3 {
-  font-size: 1.0625rem;
+  font-size: 1rem;
 }
 
 .agenda p {
@@ -828,26 +1091,33 @@ summary {
   color: var(--ink-muted);
 }
 
-/* Free pizza */
+/* Free pizza: contained, so the gold lands as one deliberate moment. */
+.section--gold .pizza-grid {
+  padding: 32px 24px;
+  border-radius: var(--radius-panel);
+  background: var(--gold);
+}
+
 .pizza-grid {
   display: grid;
-  gap: 32px;
+  gap: 24px;
   align-items: center;
 }
 
 .pizza-copy h2 {
-  font-size: clamp(2.25rem, 6vw, 4.5rem);
-  line-height: 1.05;
+  font-size: clamp(2rem, 4.6vw, 3.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
 }
 
 .pizza-copy p {
-  margin-block: 16px 24px;
+  margin-block: 14px 24px;
   font-size: 1.125rem;
 }
 
 .pizza {
   width: 100%;
-  max-width: 460px;
+  max-width: 340px;
   height: auto;
   margin-inline: auto;
   fill: none;
@@ -882,30 +1152,46 @@ summary {
   stroke-width: 1.8;
 }
 
-/* Events */
+/* Events: one panel of rows, so a long list scans as a table. */
+.event-list {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--raised);
+  box-shadow: inset 0 1px 0 var(--highlight);
+}
+
 .event-list li {
   display: grid;
   gap: 6px;
-  padding-block: 18px;
-  border-top: 1px solid var(--line);
+  padding: 18px 20px;
 }
 
-.section--soft .event-list li {
-  border-color: var(--control);
+.event-list li + li {
+  border-top: 1px solid var(--line);
 }
 
 .event-date {
   color: var(--accent-text);
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font: 500 0.9375rem/1.4 var(--mono);
+  letter-spacing: -0.01em;
 }
 
-.event-list h3 {
-  font-size: 1.1875rem;
-}
-
-.event-list h3 + p {
+.event-date span {
+  display: block;
   color: var(--ink-muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
+.event-body h3,
+.event-body h4 {
+  font-size: 1.0625rem;
+}
+
+.event-body p {
+  margin-top: 3px;
+  color: var(--ink-muted);
+  font-size: 0.9375rem;
 }
 
 .event-actions {
@@ -916,15 +1202,77 @@ summary {
   margin-top: 8px;
 }
 
-.event-status {
+.slides-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 5px 13px 5px 11px;
+  border: 1px solid var(--control);
+  border-radius: var(--radius);
+  color: var(--ink-muted);
+  font-size: 0.75rem;
+  line-height: 1.35;
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.slides-link svg {
+  flex: none;
+  color: var(--accent-text);
+}
+
+.slides-link strong {
+  display: block;
+  color: var(--ink);
   font-size: 0.875rem;
   font-weight: 600;
 }
 
-/* Join */
+.slides-link:hover {
+  border-color: var(--ink);
+  background: var(--raised-hover);
+}
+
+.slides-link:active {
+  transform: translateY(1px);
+}
+
+.panel-empty {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  padding: 28px 24px;
+  border: 1px dashed var(--control);
+  border-radius: var(--radius-panel);
+  color: var(--ink-muted);
+}
+
+.recap-groups {
+  display: grid;
+  gap: 40px;
+}
+
+.recap-group {
+  display: grid;
+  gap: 14px;
+}
+
+.recap-group > h3 {
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+/* Join: contained like the pizza panel, in the club's maroon. */
+.section--maroon .join-grid {
+  padding: 32px 24px;
+  border-radius: var(--radius-panel);
+  background: linear-gradient(145deg, var(--maroon), #64142e);
+}
+
 .join-grid {
   display: grid;
-  gap: 36px;
+  gap: 32px;
 }
 
 .join-grid .section-heading {
@@ -942,11 +1290,11 @@ summary {
   gap: 14px;
   min-height: 64px;
   padding: 10px 16px;
-  border: 1px solid var(--control);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   font-size: 0.875rem;
   text-decoration: none;
-  transition: background-color 0.15s, color 0.15s;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
 }
 
 .social-links strong {
@@ -975,14 +1323,17 @@ summary {
   counter-increment: step;
 }
 
+.join-steps li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
 .join-steps li::before {
   content: counter(step);
   position: absolute;
   left: 0;
   color: var(--gold);
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.2;
+  font: 500 1.125rem/1.3 var(--mono);
 }
 
 .join-steps p {
@@ -1002,9 +1353,9 @@ summary {
 
 .mission h2 {
   max-width: 22em;
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.375rem, 2.6vw, 2rem);
   font-weight: 400;
-  line-height: 1.3;
+  line-height: 1.32;
 }
 
 .mission p {
@@ -1015,51 +1366,203 @@ summary {
   margin-top: 14px;
 }
 
-.leaders {
+/* Board gallery: the active frame sits on the page's center line with a neighbor dimmed on each side as a cue to scroll.
+   Sizes use the gallery's own width (cqi), so they hold wherever the section is placed. */
+.gallery {
+  container-type: inline-size;
+}
+
+.gallery-stage {
+  --frame: min(86cqi, 860px);
+  --portrait: clamp(100px, 33cqi, 150px);
+  --portrait-gap: 20px;
+  position: relative;
+}
+
+/* Arrows straddle the active frame's edges, which stay clear of the portraits at every width. */
+.gallery-arrow {
+  position: absolute;
+  top: calc(50% - 22px);
+  z-index: 1;
   display: grid;
-  gap: 24px;
-  margin-bottom: 36px;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--control);
+  border-radius: 50%;
+  background: var(--raised-hover);
+  color: var(--ink);
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.25);
+  transition: background-color 0.15s, border-color 0.15s;
 }
 
-.leaders h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+.gallery-arrow-prev {
+  left: calc((100cqi - var(--frame)) / 2 - 22px);
 }
 
-.leaders p {
-  margin-top: 4px;
-  color: var(--accent-text);
-  font-weight: 600;
+.gallery-arrow-next {
+  right: calc((100cqi - var(--frame)) / 2 - 22px);
 }
 
-.members {
-  display: grid;
-  gap: 0 24px;
+.gallery-arrow:hover {
+  border-color: var(--ink);
+  background: var(--raised);
 }
 
-.members li {
-  padding-block: 10px;
-  border-top: 1px solid var(--control);
+.gallery-arrow:active {
+  transform: translateY(1px);
 }
 
-.members span {
+.gallery-track {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  padding-inline: calc((100cqi - var(--frame)) / 2);
+  overflow-x: auto;
+  border-radius: var(--radius-panel);
+  cursor: grab;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  overscroll-behavior-x: contain;
+}
+
+.gallery-track::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-track.is-dragging {
+  cursor: grabbing;
+  scroll-snap-type: none;
+  user-select: none;
+}
+
+.gallery-frame {
+  display: flex;
+  flex: 0 0 var(--frame);
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--maroon) 14%, var(--raised)), var(--raised) 60%);
+  box-shadow: inset 0 1px 0 var(--highlight);
+  opacity: 0.4;
+  scroll-snap-align: center;
+  text-align: center;
+  transition: opacity 0.35s ease;
+}
+
+.gallery-frame.is-active {
+  opacity: 1;
+}
+
+.gallery-frame h3 {
+  margin-bottom: 28px;
+  font-size: clamp(1.25rem, 2.4vw, 1.625rem);
+  letter-spacing: -0.025em;
+}
+
+/* Width caps the rows at two portraits on narrow screens, and wrapping keeps an odd one out centered. */
+.gallery-frame ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px var(--portrait-gap);
+  max-width: calc(2 * var(--portrait) + var(--portrait-gap));
+  margin-inline: auto;
+}
+
+.gallery-frame li {
+  width: var(--portrait);
+}
+
+.portrait {
   display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  background: var(--soft);
+  box-shadow: 0 0 0 1px var(--line);
+  object-fit: cover;
+}
+
+.gallery-frame h4 {
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.gallery-frame li p {
+  margin-top: 4px;
+  color: var(--ink-muted);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.gallery-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 20px auto 0;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--soft);
+}
+
+.gallery-tabs button {
+  min-height: 44px;
+  padding-inline: 14px;
+  border-radius: var(--radius);
   color: var(--ink-muted);
   font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.gallery-tabs button:hover {
+  background: var(--raised);
+  color: var(--ink);
+}
+
+.gallery-tabs button:active {
+  transform: translateY(1px);
+}
+
+.gallery-tabs button[aria-current="true"] {
+  background: var(--raised-hover);
+  color: var(--ink);
+  box-shadow: inset 0 -2px 0 var(--gold);
+}
+
+.partners {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-panel);
+  background: var(--raised);
+  box-shadow: inset 0 1px 0 var(--highlight);
 }
 
 .partners li {
   display: grid;
   gap: 2px;
-  padding-block: 16px;
+  padding: 16px 20px;
+}
+
+.partners li + li {
   border-top: 1px solid var(--line);
 }
 
 .partners strong {
-  color: var(--accent-text);
+  font-weight: 600;
 }
 
-.partners span:last-child {
+.partners span {
   color: var(--ink-muted);
+  font-size: 0.9375rem;
 }
 
 /* FAQ */
@@ -1072,7 +1575,7 @@ summary {
 @media (min-width: 640px) {
   :root {
     --gutter: 32px;
-    --band: 72px;
+    --band: 80px;
   }
 
   .site-footer-row {
@@ -1088,17 +1591,24 @@ summary {
     max-width: 560px;
   }
 
-  .leaders {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .gallery-frame {
+    padding: 40px 32px;
   }
 
-  .members {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Wide enough for all four of the largest group in one row, with every frame's portraits the same size. */
+  @container (min-width: 720px) {
+    .gallery-stage {
+      --portrait: clamp(120px, 17cqi, 180px);
+    }
+
+    .gallery-frame ul {
+      max-width: none;
+    }
   }
 
-  .program-pair {
+  .program-pair,
+  .rotation {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 32px;
   }
 
   .event-list li {
@@ -1111,30 +1621,30 @@ summary {
   }
 
   .partners li {
-    grid-template-columns: 72px minmax(0, 1fr) minmax(0, 1fr);
-    gap: 16px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
   }
 
-  .hero-slash {
-    display: block;
-    opacity: 0.35;
-  }
-
-  .hero-facts {
-    display: flex;
-    gap: 0;
-  }
-
-  .hero-facts li + li::before {
-    content: "/";
-    margin-inline: 10px;
-    color: var(--gold);
-    font-weight: 400;
+  .section--gold .pizza-grid,
+  .section--maroon .join-grid {
+    padding: 48px;
   }
 }
 
-/* Header goes to one row as soon as the links and the button fit. */
+/* Header goes to one row and stays on screen as soon as the links and the button fit. */
 @media (min-width: 860px) {
+  html {
+    scroll-padding-top: 88px;
+  }
+
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    background: var(--header-bg);
+    backdrop-filter: blur(14px); /* The only blurred surface: keeps the bar legible over scrolling content. */
+  }
+
   .site-header-row {
     grid-template-columns: auto 1fr auto;
     padding-block: 10px;
@@ -1144,8 +1654,8 @@ summary {
     grid-column: auto;
     grid-row: auto;
     justify-content: flex-end;
-    gap: 4px;
-    margin-inline: 0;
+    gap: 24px;
+    margin-inline: 0 12px;
   }
 
   .site-header-cta {
@@ -1156,29 +1666,24 @@ summary {
 /* Desktop: the asymmetric layouts. */
 @media (min-width: 960px) {
   :root {
-    --band: 96px;
+    --band: 104px;
   }
 
   .hero {
-    padding-block: 96px;
+    padding-block: 88px 104px;
   }
 
-  .hero-slash {
-    opacity: 1;
-  }
-
-  .hero-lead {
-    max-width: 68%;
-  }
-
-  .hero h1 {
-    max-width: 72%;
+  .hero-grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: 64px;
+    align-items: center;
   }
 
   .program-flagship {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: 56px;
     align-items: start;
+    margin-bottom: 56px;
   }
 
   .meeting-grid {
@@ -1191,6 +1696,11 @@ summary {
     gap: 56px;
   }
 
+  .section--gold .pizza-grid,
+  .section--maroon .join-grid {
+    padding: 64px;
+  }
+
   .join-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 72px;
@@ -1201,19 +1711,32 @@ summary {
     gap: 72px;
   }
 
-  .members {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
   .event-list li {
-    grid-template-columns: 130px minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 120px minmax(0, 1fr) auto;
     align-items: center;
+    column-gap: 24px;
   }
 
   .event-actions {
     grid-column: auto;
     justify-content: flex-end;
     margin-top: 0;
+  }
+
+  .calendar-options {
+    right: 0;
+    left: auto;
+  }
+
+  .recap-group {
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .recap-group > h3 {
+    position: sticky;
+    top: 96px;
   }
 }
 
