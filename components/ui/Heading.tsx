@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { Container } from "./Section";
 
-/** Section title with the logo's slash in front, plus an optional lead. */
+/** Section title with an optional lead. */
 export function SectionHeading({ id, title, lead }: { id: string; title: ReactNode; lead?: ReactNode }) {
   return (
     <header className="section-heading">

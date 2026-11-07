@@ -31,7 +31,7 @@ export function JoinSection() {
     <Section tone="maroon" labelledBy="join-title">
       <div className="join-grid">
         <div>
-          <SectionHeading id="join-title" title="Show up Wednesday." lead="Built for tech majors, open to every major. No experience required." />
+          <SectionHeading id="join-title" title="Show up Wednesday" lead="Built for tech majors, open to every major. No experience required." />
           <SocialLinks />
         </div>
         <ol className="join-steps">

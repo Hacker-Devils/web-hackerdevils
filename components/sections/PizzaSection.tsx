@@ -8,7 +8,7 @@ export function PizzaSection() {
     <Section tone="gold" labelledBy="pizza-title">
       <div className="pizza-grid">
         <div className="pizza-copy">
-          <h2 id="pizza-title">There’s free pizza every meeting.</h2>
+          <h2 id="pizza-title">There’s free pizza every meeting</h2>
           <p>Grab a slice, then grab a problem.</p>
           <Button href={links.discord} icon={<DiscordIcon />}>
             Find this week’s room

@@ -20,7 +20,7 @@ export function Button({ href, variant = "primary", size = "default", icon, clas
     </>
   );
 
-  if (href.startsWith("/")) {
+  if (href.startsWith("/") && !href.includes(".")) {
     return (
       <Link className={classes} href={href}>
         {body}
