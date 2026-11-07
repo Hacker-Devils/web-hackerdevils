@@ -1,4 +1,4 @@
-import { links } from "./content";
+import { links } from "@/content/site";
 
 /**
  * Weekly meeting: Wednesdays 6–7 PM in Arizona.
