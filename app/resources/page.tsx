@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { DiscordIcon } from "@/components/BrandIcons";
-import { links } from "@/lib/content";
+import { DiscordIcon } from "@/components/brand/SocialIcons";
+import { Button, PageHeading } from "@/components/ui";
+import { links } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Resources",
@@ -9,18 +10,10 @@ export const metadata: Metadata = {
 
 export default function ResourcesPage() {
   return (
-    <section className="page-head coming-soon wrap grid-paper" aria-labelledby="resources-title">
-      <h1 id="resources-title">
-        Resources, <span className="accent">coming soon.</span>
-      </h1>
-      <p>
-        Slides, notes and problem sets from our LeetCode, system design and GPU programming sessions will live here. Until then, everything is
-        shared on Discord.
-      </p>
-      <a className="button primary" href={links.discord}>
-        <DiscordIcon className="brand-glyph" />
-        Join the Discord <span className="arrow" aria-hidden="true">↗</span>
-      </a>
-    </section>
+    <PageHeading title="Resources are coming soon" lead="Slides, notes and problem sets from our sessions will live here. Until then, we share everything on Discord.">
+      <Button href={links.discord} icon={<DiscordIcon />}>
+        Join the Discord
+      </Button>
+    </PageHeading>
   );
 }

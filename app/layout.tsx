@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Sora } from "next/font/google";
-import SiteHeader from "@/components/SiteHeader";
-import SiteFooter from "@/components/SiteFooter";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 import "./globals.css";
 
 const sora = Sora({ subsets: ["latin"], weight: ["300", "400", "600"], variable: "--font-sora", display: "swap" });
