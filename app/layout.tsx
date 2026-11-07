@@ -19,18 +19,18 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#18161b",
+  themeColor: "#faf8f5",
 };
 
 /**
  * Runs before first paint so the stored theme applies without a flash.
- * Dark is the brand default for everyone, so only a saved choice from the toggle changes it.
+ * Light is the default for everyone, so only a saved choice from the toggle changes it.
  */
-const themeScript = `(function(){try{var t=localStorage.getItem('hkd-theme');if(t!=='light'&&t!=='dark'){t='dark'}document.documentElement.setAttribute('data-theme',t)}catch(e){}})();`;
+const themeScript = `(function(){try{var t=localStorage.getItem('hkd-theme');if(t!=='light'&&t!=='dark'){t='light'}document.documentElement.setAttribute('data-theme',t)}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" className={`${sora.variable} ${plexMono.variable}`} suppressHydrationWarning>
+    <html lang="en" data-theme="light" className={`${sora.variable} ${plexMono.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
