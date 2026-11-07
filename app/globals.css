@@ -2,7 +2,7 @@
    1. Tokens  2. Base  3. Layout  4. UI components  5. Site chrome  6. Sections  7. Motion
 
    Decisions:
-   - Colour: near-black by default, with maroon and gold from the club's logo. Gold marks what to act on; maroon carries identity.
+   - Colour: warm off-white by default with a charcoal dark theme on the toggle, and maroon and gold from the club's logo. Gold marks what to act on; maroon carries identity.
    - Surfaces: one raised tone, hairline borders and a 1px top highlight, so structure reads without heavy shadows.
    - Type: Sora for its wide, confident shapes. Plex Mono only where digits or code must align.
    - Shape: 8px on controls, 14px on panels, so nesting looks deliberate. */
