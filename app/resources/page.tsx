@@ -5,15 +5,18 @@ import { links } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Resources",
-  description: "Slides, notes and problem sets from Hacker Devils sessions. Coming soon.",
+  description: "Hacker Devils resources are coming soon.",
 };
 
 export default function ResourcesPage() {
   return (
-    <PageHeading title="Resources are coming soon" lead="Slides, notes and problem sets from our sessions will live here. Until then, we share everything on Discord.">
-      <Button href={links.discord} icon={<DiscordIcon />}>
-        Join the Discord
-      </Button>
+    <PageHeading title="Coming soon" lead="We’re putting this page together. Until then, slides from past meetings are on the Events page.">
+      <div className="page-actions">
+        <Button href="/events#recaps">See event recaps</Button>
+        <Button href={links.discord} variant="secondary" icon={<DiscordIcon />}>
+          Join the Discord
+        </Button>
+      </div>
     </PageHeading>
   );
 }

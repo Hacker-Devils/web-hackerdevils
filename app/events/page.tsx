@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
-import { HostSection, PastEventsSection, UpcomingEventsSection } from "@/components/sections/EventsSections";
+import { CodeAThonFeature } from "@/components/sections/CodeAThonFeature";
+import { HostSection, RecapsSection, UpcomingEventsSection } from "@/components/sections/EventsSections";
 import { JoinSection } from "@/components/sections/JoinSection";
-import { ProgramsSection } from "@/components/sections/ProgramsSection";
 import { PageHeading } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Events",
-  description: "Technical interview prep at Hacker Devils: LeetCode every Wednesday and system design every other week, with GPU programming coming soon.",
+  description: "Upcoming Hacker Devils meetings you can add to your calendar, plus recaps of past events with their slides.",
 };
 
 export default function EventsPage() {
   return (
     <>
-      <PageHeading title="Events" lead="Weekly meetings and a few bigger events each semester. Dates go out on Discord first." />
+      <PageHeading title="Events" lead="What’s coming up, and what we’ve already covered. Dates go out on Discord first." />
+      <CodeAThonFeature />
       <UpcomingEventsSection />
-      <ProgramsSection detailed />
-      <PastEventsSection />
+      <RecapsSection />
       <HostSection />
       <JoinSection />
     </>
