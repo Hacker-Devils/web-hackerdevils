@@ -1498,9 +1498,10 @@ html {
 }
 
 .gallery-stage {
-  --frame: min(86cqi, 860px);
+  --frame: min(92cqi, 860px);
   --portrait: clamp(92px, 30cqi, 150px);
-  --portrait-gap: 20px;
+  --slot: 130px; /* Room for the longest name on one line, wider than the portrait on phones. */
+  --portrait-gap: 12px;
   --arrow: 36px;
   position: relative;
 }
@@ -1574,7 +1575,7 @@ html {
   flex: 0 0 var(--frame);
   flex-direction: column;
   justify-content: center;
-  padding: 32px 20px;
+  padding: 32px 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-panel);
   background: linear-gradient(180deg, color-mix(in srgb, var(--maroon) 14%, var(--raised)), var(--raised) 60%);
@@ -1601,20 +1602,20 @@ html {
   flex-wrap: wrap;
   justify-content: center;
   gap: 28px var(--portrait-gap);
-  max-width: calc(2 * var(--portrait) + var(--portrait-gap));
+  max-width: calc(2 * var(--slot) + var(--portrait-gap));
   margin-inline: auto;
 }
 
 .gallery-frame li {
-  width: var(--portrait);
+  width: var(--slot);
 }
 
 .portrait {
   display: block;
-  width: 100%;
+  width: var(--portrait);
   height: auto;
   aspect-ratio: 1;
-  margin-bottom: 14px;
+  margin: 0 auto 14px;
   border-radius: 12px;
   background: var(--soft);
   box-shadow: 0 0 0 1px var(--line);
@@ -1622,21 +1623,20 @@ html {
 }
 
 .gallery-frame h4 {
-  font-size: 1rem;
+  font-size: 0.8125rem;
+  white-space: nowrap;
   line-height: 1.3;
 }
 
 .gallery-frame li p {
   margin-top: 4px;
   color: var(--ink-muted);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   line-height: 1.45;
 }
 
 .gallery-tabs {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 4px;
   width: fit-content;
   max-width: 100%;
