@@ -1635,9 +1635,14 @@ html {
   line-height: 1.45;
 }
 
+/* One row. On phones it scrolls sideways, with the edges fading to show there is more. */
 .gallery-tabs {
+  position: relative;
   display: flex;
   gap: 4px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
   width: fit-content;
   max-width: 100%;
   margin: 20px auto 0;
@@ -1647,7 +1652,20 @@ html {
   background: var(--soft);
 }
 
+.gallery-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .gallery-tabs {
+    width: auto;
+    mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 16px), transparent);
+  }
+}
+
 .gallery-tabs button {
+  flex: none;
+  white-space: nowrap;
   min-height: 44px;
   padding-inline: 14px;
   border-radius: var(--radius);
@@ -1895,11 +1913,22 @@ html {
   }
 
   .gallery-stage {
+    --frame: min(86cqi, 860px);
+    --slot: max(var(--portrait), 160px);
+    --portrait-gap: 20px;
     --arrow: 44px;
   }
 
-  /* Wide enough for all four of the largest group in one row, with every frame's portraits the same size. */
-  @container (min-width: 720px) {
+  .gallery-frame h4 {
+    font-size: 1rem;
+  }
+
+  .gallery-frame li p {
+    font-size: 0.8125rem;
+  }
+
+  /* Wide enough for all four of the largest group in one row, names included, with every frame's portraits the same size. */
+  @container (min-width: 900px) {
     .gallery-stage {
       --portrait: clamp(120px, 17cqi, 180px);
     }
