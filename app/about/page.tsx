@@ -3,6 +3,7 @@ import { BoardSection, MissionSection, PartnersSection } from "@/components/sect
 import { FaqSection } from "@/components/sections/FaqSection";
 import { JoinSection } from "@/components/sections/JoinSection";
 import { PageHeading } from "@/components/ui";
+import clubGroup from "@/public/photos/club-group.jpg";
 
 export const metadata: Metadata = {
   title: "About",
@@ -12,7 +13,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <PageHeading title="Who we are" lead="A Fulton Schools club for technical interview prep. Built for tech majors, open to every ASU student." />
+      <PageHeading title="Who we are" lead="A Fulton Schools club for technical interview prep. Built for tech majors, open to every ASU student."
+        photo={{ src: clubGroup, alt: "About forty Hacker Devils members standing together for a group photo in a classroom" }}
+      />
       <MissionSection />
       <BoardSection />
       <PartnersSection />

@@ -353,6 +353,27 @@ summary {
   font-size: 1.125rem;
 }
 
+.page-heading-split {
+  display: grid;
+  gap: 32px;
+}
+
+.page-heading-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius-panel);
+}
+
+@media (min-width: 960px) {
+  .page-heading-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+    align-items: center;
+    gap: 56px;
+  }
+}
+
 .page-actions {
   display: flex;
   flex-wrap: wrap;
