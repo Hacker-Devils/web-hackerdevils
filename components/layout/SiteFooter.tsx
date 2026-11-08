@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
-import { DiscordIcon, InstagramIcon, LinkedInIcon } from "@/components/brand/SocialIcons";
+import { DiscordIcon, InstagramIcon, LinkedInIcon, XIcon } from "@/components/brand/SocialIcons";
 import { Container } from "@/components/ui";
 import { links, nav } from "@/content/site";
 
 const socials = [
   { label: "Discord", href: links.discord, Icon: DiscordIcon },
   { label: "Instagram", href: links.instagram, Icon: InstagramIcon },
+  { label: "X (Twitter)", href: links.x, Icon: XIcon },
   { label: "LinkedIn", href: links.linkedin, Icon: LinkedInIcon },
 ];
 
