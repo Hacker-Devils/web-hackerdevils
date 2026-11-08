@@ -23,6 +23,19 @@ export const codeAThon: UpcomingEvent = {
   room: "PSF 173",
 };
 
+/**
+ * Sign-ups are stored in Firestore at events/{eventId}/registrations/{asu email}.
+ * `closes` must match the cutoff in firestore.rules, which is what actually enforces it.
+ */
+export const codeAThonRegistration = {
+  eventId: "code-a-thon-fall-2026",
+  closes: "2026-11-22T13:00:00-07:00",
+  tracks: [
+    { value: "beginner", label: "Beginner", detail: "Newer to coding problems, or still learning the basics." },
+    { value: "advanced", label: "Advanced", detail: "Comfortable with data structures and solving problems against the clock." },
+  ],
+} as const;
+
 export const codeAThonFacts = [
   { label: "When", value: "Sunday, November 22, 1 to 4 PM" },
   { label: "Where", value: "PSF 173, in person" },

@@ -1,10 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { DiscordIcon } from "@/components/brand/SocialIcons";
 import { Button, FactList, Section } from "@/components/ui";
 import { codeAThon, codeAThonFacts } from "@/content/events";
-import { links } from "@/content/site";
 import { isUpcoming } from "@/lib/calendar";
 import { AddToCalendar } from "./AddToCalendar";
 
@@ -27,10 +25,10 @@ export function CodeAThonFeature() {
             A coding competition on HackerRank, in person, with <em>a chance to win GTA 6</em>.
           </p>
           <div className="feature-actions">
-            <AddToCalendar event={codeAThon} />
-            <Button href={links.discord} size="small" icon={<DiscordIcon />}>
-              Get updates on Discord
+            <Button href="/code-a-thon" size="small">
+              Register
             </Button>
+            <AddToCalendar event={codeAThon} />
           </div>
         </div>
         <FactList items={codeAThonFacts} />
