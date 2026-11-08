@@ -14,6 +14,7 @@ const HOLD_MS = 8000;
  */
 export function BoardGallery() {
   const track = useRef<HTMLDivElement>(null);
+  const tabs = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const activeRef = useRef(0);
   /** Where a smooth scroll is heading, so a second arrow click mid-scroll counts from there. */
@@ -70,6 +71,15 @@ export function BoardGallery() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  // On phones the tabs are one sideways row: keep the current one centred in it.
+  // Only the row scrolls, never the page, so autoplay can't pull the reader around.
+  useEffect(() => {
+    const row = tabs.current;
+    const tab = row?.children[active] as HTMLElement | undefined;
+    if (!row || !tab || row.scrollWidth <= row.clientWidth) return;
+    row.scrollTo({ left: tab.offsetLeft - (row.clientWidth - tab.offsetWidth) / 2, behavior: reducedMotion.current ? "auto" : "smooth" });
+  }, [active]);
 
   useEffect(() => {
     reducedMotion.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -161,7 +171,7 @@ export function BoardGallery() {
         </button>
       </div>
 
-      <div className="gallery-tabs">
+      <div className="gallery-tabs" ref={tabs}>
         {boardFrames.map((frame, i) => (
           <button
             key={frame.label}

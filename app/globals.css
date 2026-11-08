@@ -366,14 +366,6 @@ summary {
   border-radius: var(--radius-panel);
 }
 
-@media (min-width: 960px) {
-  .page-heading-split {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
-    align-items: center;
-    gap: 56px;
-  }
-}
-
 .page-actions {
   display: flex;
   flex-wrap: wrap;
@@ -519,8 +511,17 @@ summary {
 }
 
 /* ---------- 5. Site chrome ---------- */
+/* Sticky at every width so the menu is always one tap away. */
+html {
+  scroll-padding-top: 76px;
+}
+
 .site-header {
-  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--header-bg);
+  backdrop-filter: blur(14px); /* The only blurred surface: keeps the bar legible over scrolling content. */
   border-bottom: 1px solid var(--line);
 }
 
@@ -528,8 +529,8 @@ summary {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 4px 16px;
-  padding-block: 10px 0;
+  gap: 16px;
+  padding-block: 10px;
 }
 
 .logo {
@@ -553,43 +554,112 @@ summary {
   stroke: var(--logo-maroon);
 }
 
+/* Under 860px the links are a panel that drops below the bar. */
 .main-nav {
-  grid-column: 1 / -1;
-  grid-row: 2;
-  display: flex;
-  gap: 20px;
-  margin-inline: -4px;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  padding: 8px var(--gutter) 24px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  box-shadow: 0 16px 32px -24px rgb(0 0 0 / 0.35);
 }
 
-.main-nav a {
+.main-nav[data-open] {
+  display: flex;
+  animation: menu-in 0.18s ease-out;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.main-nav a:not(.button) {
   display: flex;
   align-items: center;
-  min-height: 44px;
-  padding-inline: 4px;
+  min-height: 52px;
+  border-bottom: 1px solid var(--line);
   color: var(--ink-muted);
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   font-weight: 500;
   text-decoration: none;
   transition: color 0.15s;
 }
 
-.main-nav a:hover {
+.main-nav a:not(.button):hover {
   color: var(--ink);
 }
 
 .main-nav a[aria-current="page"] {
   color: var(--ink);
-  box-shadow: inset 0 -2px 0 var(--gold);
+  font-weight: 600;
+  text-decoration: underline 2px var(--gold);
+  text-underline-offset: 8px;
+}
+
+.main-nav-cta {
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .site-header-actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .site-header-cta {
   display: none;
+}
+
+.menu-button {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  transition: background-color 0.15s, border-color 0.15s;
+}
+
+.menu-button::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+}
+
+.menu-button:hover {
+  border-color: var(--control);
+  background: var(--raised-hover);
+}
+
+.menu-line {
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  transform-box: view-box;
+  transform-origin: 9px 9px;
+  transition: transform 0.2s ease, opacity 0.15s ease;
+}
+
+.menu-button[aria-expanded="true"] .menu-line-top {
+  transform: translateY(4px) rotate(45deg);
+}
+
+.menu-button[aria-expanded="true"] .menu-line-mid {
+  opacity: 0;
+}
+
+.menu-button[aria-expanded="true"] .menu-line-bottom {
+  transform: translateY(-4px) rotate(-45deg);
 }
 
 .theme-toggle {
@@ -783,17 +853,22 @@ summary {
 }
 
 .next-sessions li {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px 16px;
+  gap: 16px;
   padding-top: 16px;
 }
 
 .next-sessions strong {
   display: block;
   font-weight: 600;
+}
+
+/* The button sits at the card's right edge, so its menu opens leftward to stay on screen. */
+.next-sessions .calendar-options {
+  right: 0;
+  left: auto;
 }
 
 .next-sessions span {
@@ -1423,21 +1498,23 @@ summary {
 }
 
 .gallery-stage {
-  --frame: min(86cqi, 860px);
-  --portrait: clamp(100px, 33cqi, 150px);
-  --portrait-gap: 20px;
+  --frame: min(92cqi, 860px);
+  --portrait: clamp(92px, 30cqi, 150px);
+  --slot: 130px; /* Room for the longest name on one line, wider than the portrait on phones. */
+  --portrait-gap: 12px;
+  --arrow: 36px;
   position: relative;
 }
 
 /* Arrows straddle the active frame's edges, which stay clear of the portraits at every width. */
 .gallery-arrow {
   position: absolute;
-  top: calc(50% - 22px);
+  top: calc(50% - var(--arrow) / 2);
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: var(--arrow);
+  height: var(--arrow);
   border: 1px solid var(--control);
   border-radius: 50%;
   background: var(--raised-hover);
@@ -1446,12 +1523,19 @@ summary {
   transition: background-color 0.15s, border-color 0.15s;
 }
 
+/* Phones get a smaller circle that clears the portraits; the tap area stays 44px. */
+.gallery-arrow::after {
+  content: "";
+  position: absolute;
+  inset: calc((var(--arrow) - 44px) / 2);
+}
+
 .gallery-arrow-prev {
-  left: calc((100cqi - var(--frame)) / 2 - 22px);
+  left: calc((100cqi - var(--frame) - var(--arrow)) / 2);
 }
 
 .gallery-arrow-next {
-  right: calc((100cqi - var(--frame)) / 2 - 22px);
+  right: calc((100cqi - var(--frame) - var(--arrow)) / 2);
 }
 
 .gallery-arrow:hover {
@@ -1491,7 +1575,7 @@ summary {
   flex: 0 0 var(--frame);
   flex-direction: column;
   justify-content: center;
-  padding: 32px 20px;
+  padding: 32px 12px;
   border: 1px solid var(--line);
   border-radius: var(--radius-panel);
   background: linear-gradient(180deg, color-mix(in srgb, var(--maroon) 14%, var(--raised)), var(--raised) 60%);
@@ -1518,20 +1602,20 @@ summary {
   flex-wrap: wrap;
   justify-content: center;
   gap: 28px var(--portrait-gap);
-  max-width: calc(2 * var(--portrait) + var(--portrait-gap));
+  max-width: calc(2 * var(--slot) + var(--portrait-gap));
   margin-inline: auto;
 }
 
 .gallery-frame li {
-  width: var(--portrait);
+  width: var(--slot);
 }
 
 .portrait {
   display: block;
-  width: 100%;
+  width: var(--portrait);
   height: auto;
   aspect-ratio: 1;
-  margin-bottom: 14px;
+  margin: 0 auto 14px;
   border-radius: 12px;
   background: var(--soft);
   box-shadow: 0 0 0 1px var(--line);
@@ -1539,22 +1623,26 @@ summary {
 }
 
 .gallery-frame h4 {
-  font-size: 1rem;
+  font-size: 0.8125rem;
+  white-space: nowrap;
   line-height: 1.3;
 }
 
 .gallery-frame li p {
   margin-top: 4px;
   color: var(--ink-muted);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   line-height: 1.45;
 }
 
+/* One row. On phones it scrolls sideways, with the edges fading to show there is more. */
 .gallery-tabs {
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   gap: 4px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
   width: fit-content;
   max-width: 100%;
   margin: 20px auto 0;
@@ -1564,7 +1652,20 @@ summary {
   background: var(--soft);
 }
 
+.gallery-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+@media (max-width: 639px) {
+  .gallery-tabs {
+    width: auto;
+    mask-image: linear-gradient(90deg, transparent, #000 16px, #000 calc(100% - 16px), transparent);
+  }
+}
+
 .gallery-tabs button {
+  flex: none;
+  white-space: nowrap;
   min-height: 44px;
   padding-inline: 14px;
   border-radius: var(--radius);
@@ -1811,8 +1912,23 @@ summary {
     padding: 40px 32px;
   }
 
-  /* Wide enough for all four of the largest group in one row, with every frame's portraits the same size. */
-  @container (min-width: 720px) {
+  .gallery-stage {
+    --frame: min(86cqi, 860px);
+    --slot: max(var(--portrait), 160px);
+    --portrait-gap: 20px;
+    --arrow: 44px;
+  }
+
+  .gallery-frame h4 {
+    font-size: 1rem;
+  }
+
+  .gallery-frame li p {
+    font-size: 0.8125rem;
+  }
+
+  /* Wide enough for all four of the largest group in one row, names included, with every frame's portraits the same size. */
+  @container (min-width: 900px) {
     .gallery-stage {
       --portrait: clamp(120px, 17cqi, 180px);
     }
@@ -1847,31 +1963,61 @@ summary {
   }
 }
 
-/* Header goes to one row and stays on screen as soon as the links and the button fit. */
+/* iPad portrait: side-by-side where both halves still read comfortably. */
+@media (min-width: 720px) {
+  .page-heading-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, clamp(300px, 38vw, 460px));
+    align-items: center;
+    gap: clamp(40px, 5vw, 56px);
+  }
+
+  .join-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 40px;
+  }
+}
+
+/* Wide enough for the links and the Discord button to sit inline. */
 @media (min-width: 860px) {
   html {
     scroll-padding-top: 88px;
   }
 
-  .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 30;
-    background: var(--header-bg);
-    backdrop-filter: blur(14px); /* The only blurred surface: keeps the bar legible over scrolling content. */
-  }
-
   .site-header-row {
     grid-template-columns: auto 1fr auto;
-    padding-block: 10px;
   }
 
-  .main-nav {
-    grid-column: auto;
-    grid-row: auto;
+  .main-nav,
+  .main-nav[data-open] {
+    position: static;
+    display: flex;
+    flex-direction: row;
     justify-content: flex-end;
     gap: 24px;
     margin-inline: 0 12px;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    animation: none;
+  }
+
+  .main-nav a:not(.button) {
+    min-height: 44px;
+    padding-inline: 4px;
+    border: 0;
+    font-size: 0.9375rem;
+  }
+
+  .main-nav a[aria-current="page"] {
+    font-weight: 500;
+    text-decoration: none;
+    box-shadow: inset 0 -2px 0 var(--gold);
+  }
+
+  .main-nav-cta,
+  .menu-button {
+    display: none;
   }
 
   .site-header-cta {

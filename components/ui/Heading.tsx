@@ -29,7 +29,7 @@ export function PageHeading({ title, lead, photo, children }: { title: string; l
         {photo ? (
           <div className="page-heading-split">
             <div>{text}</div>
-            <Image className="page-heading-photo" src={photo.src} alt={photo.alt} sizes="(min-width: 960px) 520px, 100vw" quality={90} priority placeholder="blur" />
+            <Image className="page-heading-photo" src={photo.src} alt={photo.alt} sizes="(min-width: 720px) 460px, 100vw" quality={90} priority placeholder="blur" />
           </div>
         ) : (
           text
