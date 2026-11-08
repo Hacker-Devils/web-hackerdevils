@@ -1507,20 +1507,21 @@ html {
 
 .gallery-stage {
   --frame: min(86cqi, 860px);
-  --portrait: clamp(100px, 33cqi, 150px);
+  --portrait: clamp(92px, 30cqi, 150px);
   --portrait-gap: 20px;
+  --arrow: 36px;
   position: relative;
 }
 
 /* Arrows straddle the active frame's edges, which stay clear of the portraits at every width. */
 .gallery-arrow {
   position: absolute;
-  top: calc(50% - 22px);
+  top: calc(50% - var(--arrow) / 2);
   z-index: 1;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: var(--arrow);
+  height: var(--arrow);
   border: 1px solid var(--control);
   border-radius: 50%;
   background: var(--raised-hover);
@@ -1529,12 +1530,19 @@ html {
   transition: background-color 0.15s, border-color 0.15s;
 }
 
+/* Phones get a smaller circle that clears the portraits; the tap area stays 44px. */
+.gallery-arrow::after {
+  content: "";
+  position: absolute;
+  inset: calc((var(--arrow) - 44px) / 2);
+}
+
 .gallery-arrow-prev {
-  left: calc((100cqi - var(--frame)) / 2 - 22px);
+  left: calc((100cqi - var(--frame) - var(--arrow)) / 2);
 }
 
 .gallery-arrow-next {
-  right: calc((100cqi - var(--frame)) / 2 - 22px);
+  right: calc((100cqi - var(--frame) - var(--arrow)) / 2);
 }
 
 .gallery-arrow:hover {
@@ -1892,6 +1900,10 @@ html {
 
   .gallery-frame {
     padding: 40px 32px;
+  }
+
+  .gallery-stage {
+    --arrow: 44px;
   }
 
   /* Wide enough for all four of the largest group in one row, with every frame's portraits the same size. */
