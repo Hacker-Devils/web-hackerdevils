@@ -353,6 +353,27 @@ summary {
   font-size: 1.125rem;
 }
 
+.page-heading-split {
+  display: grid;
+  gap: 32px;
+}
+
+.page-heading-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  border-radius: var(--radius-panel);
+}
+
+@media (min-width: 960px) {
+  .page-heading-split {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+    align-items: center;
+    gap: 56px;
+  }
+}
+
 .page-actions {
   display: flex;
   flex-wrap: wrap;
@@ -572,10 +593,11 @@ summary {
 }
 
 .theme-toggle {
+  position: relative;
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   color: var(--ink-muted);
@@ -586,6 +608,22 @@ summary {
   border-color: var(--control);
   background: var(--raised-hover);
   color: var(--ink);
+}
+
+/* Keeps a 44px tap target around the smaller button. */
+.theme-toggle::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+}
+
+.theme-icon-sun,
+[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-icon-sun {
+  display: block;
 }
 
 .theme-toggle:active {
