@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { BoardSection, MissionSection, PartnersSection } from "@/components/sections/AboutSections";
+import { FaqSection } from "@/components/sections/FaqSection";
 import { JoinSection } from "@/components/sections/JoinSection";
 import { PageHeading } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "About",
-  description: "Who Hacker Devils are, the Fall 2026 board, and the clubs we work with.",
+  description: "Who Hacker Devils are, the Fall 2026 board, the clubs we work with, and common questions.",
 };
 
 export default function AboutPage() {
@@ -15,6 +16,7 @@ export default function AboutPage() {
       <MissionSection />
       <BoardSection />
       <PartnersSection />
+      <FaqSection />
       <JoinSection />
     </>
   );

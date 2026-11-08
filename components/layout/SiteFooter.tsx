@@ -28,7 +28,6 @@ export function SiteFooter() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/join">Join</Link>
             <a href={links.sunDevilCentral}>Sun Devil Central</a>
           </nav>
           <nav className="site-footer-links" aria-label="Social">
