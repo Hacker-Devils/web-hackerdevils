@@ -1,13 +1,14 @@
-import { DiscordIcon, InstagramIcon } from "@/components/brand/SocialIcons";
+import { DiscordIcon, InstagramIcon, XIcon } from "@/components/brand/SocialIcons";
 import { Section, SectionHeading, TextLink } from "@/components/ui";
 import { handles, links } from "@/content/site";
 
 const socials = [
   { name: "Discord", handle: handles.discord, href: links.discord, Icon: DiscordIcon },
   { name: "Instagram", handle: handles.instagram, href: links.instagram, Icon: InstagramIcon },
+  { name: "X (Twitter)", handle: handles.x, href: links.x, Icon: XIcon },
 ];
 
-/** Discord and Instagram links with their logos and handles. */
+/** Discord, Instagram and X links with their logos and handles. */
 export function SocialLinks() {
   return (
     <ul className="social-links">

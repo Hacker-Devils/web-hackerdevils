@@ -1304,6 +1304,16 @@ summary {
   font-size: 1rem;
 }
 
+/* Long handles like the Discord invite wrap inside the card instead of running past its edge. */
+.social-links span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.social-links svg {
+  flex: none;
+}
+
 .social-links a:hover {
   background: var(--gold);
   border-color: var(--gold);
@@ -1754,9 +1764,9 @@ summary {
     grid-column: auto;
   }
 
+  /* One column: three cards stack evenly, and the full Discord invite fits on one line. */
   .social-links {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    max-width: 560px;
+    max-width: 400px;
   }
 
   .gallery-frame {
