@@ -92,6 +92,15 @@ Run any new problem's code before adding it. The examples shown on the site shou
 - Flat surfaces with hierarchy from size and colour bands, not shadows or background grids.
 - Only show numbers and claims with a real source.
 
+## Code-A-Thon registrations (Firebase)
+
+The form at `/code-a-thon` saves sign-ups to Firestore in the Firebase project `hacker-devils`, owned by the club's Google account (hckrdevils@gmail.com).
+
+- **See sign-ups:** Firebase console > Firestore Database > `events/code-a-thon-fall-2026/registrations`. Each document is named by the person's ASU email.
+- **Who can do what:** `firestore.rules`. Visitors can only add one valid sign-up per ASU email before the event starts. Nobody can read, edit or delete sign-ups from the website.
+- **Change the rules:** edit `firestore.rules`, then publish it in the console's Rules tab, or run `firebase deploy --only firestore:rules` while logged in as the club account.
+- **Next event:** change `eventId` and `closes` in `content/events.ts`, and the matching event ID and cutoff in `firestore.rules`.
+
 ## Deploy
 
 **Vercel:** import the repo and keep the defaults. The `main` branch is what deploys.
