@@ -1491,6 +1491,51 @@ html {
   margin-top: 14px;
 }
 
+/* A sourced feature follows the club's own introduction, separated by a rule rather than another card. */
+.press-feature {
+  display: grid;
+  gap: 20px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid var(--line);
+}
+
+.press-feature > * {
+  min-width: 0;
+}
+
+.press-feature h2 {
+  max-width: 20ch;
+  color: var(--accent-text);
+  font-size: 1.25rem;
+  line-height: 1.3;
+}
+
+.press-feature h3 {
+  max-width: 44ch;
+  font-size: clamp(1.1875rem, 2vw, 1.5rem);
+  line-height: 1.35;
+}
+
+.press-feature-meta {
+  margin-top: 12px;
+  color: var(--ink-muted);
+  font-size: 0.875rem;
+}
+
+.press-feature-summary {
+  max-width: 65ch;
+  margin-top: 16px;
+  color: var(--ink-muted);
+}
+
+.press-feature .text-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 12px;
+}
+
 /* Board gallery: the active frame sits on the page's center line with a neighbor dimmed on each side as a cue to scroll.
    Sizes use the gallery's own width (cqi), so they hold wherever the section is placed. */
 .gallery {
@@ -1965,6 +2010,11 @@ html {
 
 /* iPad portrait: side-by-side where both halves still read comfortably. */
 @media (min-width: 720px) {
+  .press-feature {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    gap: 40px;
+  }
+
   .page-heading-split {
     grid-template-columns: minmax(0, 1fr) minmax(0, clamp(300px, 38vw, 460px));
     align-items: center;
