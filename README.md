@@ -81,6 +81,7 @@ Run any new problem's code before adding it. The examples shown on the site shou
 
 - **Theme:** follows the OS until a visitor uses the toggle, then the choice is saved in `localStorage` (`hkd-theme`). It is applied before first paint, so there is no flash.
 - **Countdown and weekly calendar link:** Wednesday 6 PM Arizona time. Arizona has no daylight saving, so that is always Thursday 01:00 UTC.
+- **Interactive background:** outlined circles, squares and triangles move in six layers with the cursor, following the Code Warriors reference. Shapes are decorative and cannot intercept clicks. Motion settles when the cursor stops, pauses in hidden tabs, and stays still for reduced-motion preferences and touch pointers. Shape positions and depth live in `components/brand/GeometricBackground.tsx`; theme colors live in `globals.css`.
 - **Redirects:** `/programs` and `/interviews` redirect permanently to `/events` (see `next.config.ts`).
 - **Accessibility:** native controls, visible focus, a skip link, 44px touch targets, and AA contrast in both themes. Motion stops under `prefers-reduced-motion`.
 
