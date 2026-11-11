@@ -1,5 +1,6 @@
-import { Section, SectionHeading } from "@/components/ui";
+import { Section, SectionHeading, TextLink } from "@/components/ui";
 import { partners } from "@/content/people";
+import { statePressFeature } from "@/content/press";
 import { BoardGallery } from "./BoardGallery";
 
 export function MissionSection() {
@@ -17,6 +18,17 @@ export function MissionSection() {
           <p>GPU programming is coming soon, and we run events each semester with other clubs on campus. There’s free pizza at every meeting.</p>
         </div>
       </div>
+      <aside className="press-feature" aria-labelledby="press-title">
+        <h2 id="press-title">Featured in {statePressFeature.publication}</h2>
+        <div>
+          <h3>{statePressFeature.title}</h3>
+          <p className="press-feature-meta">
+            By {statePressFeature.author} · <time dateTime={statePressFeature.published}>{statePressFeature.dateLabel}</time>
+          </p>
+          <p className="press-feature-summary">{statePressFeature.summary}</p>
+          <TextLink href={statePressFeature.href}>Read the State Press article</TextLink>
+        </div>
+      </aside>
     </Section>
   );
 }
