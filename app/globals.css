@@ -5,7 +5,8 @@
    - Colour: warm off-white by default with a charcoal dark theme on the toggle, and maroon and gold from the club's logo. Gold marks what to act on; maroon carries identity.
    - Surfaces: one raised tone, hairline borders and a 1px top highlight, so structure reads without heavy shadows.
    - Type: Sora for its wide, confident shapes. Plex Mono only where digits or code must align.
-   - Shape: 8px on controls, 14px on panels, so nesting looks deliberate. */
+   - Shape: 8px on controls, 14px on panels, so nesting looks deliberate.
+   - Background: outlined geometry follows the requested Code Warriors reference, with cursor-driven depth and quiet neutral strokes behind the club's content. */
 
 /* ---------- 1. Tokens ---------- */
 :root {
@@ -33,7 +34,7 @@
   --raised: #242228;
   --raised-hover: #2c2931;
   --ink: #f5f2ee;
-  --ink-muted: #b4aeba;
+  --ink-muted: #c5bfcb;
   --line: #36323c;
   --control: #7d7783;
   --accent-text: #ffc627;
@@ -42,7 +43,9 @@
   --logo-maroon: #c2385f;
   --highlight: rgb(255 255 255 / 0.05);
   --header-bg: rgb(24 22 27 / 0.84);
-  --hero-wash: color-mix(in srgb, var(--maroon) 34%, var(--bg));
+  --hero-wash: color-mix(in srgb, var(--maroon) 34%, transparent);
+  --geometry-ink: #b4aeba;
+  --geometry-opacity: 0.36;
   --button-bg: var(--gold);
   --button-bg-hover: var(--gold-hover);
   --button-ink: var(--on-gold);
@@ -55,7 +58,7 @@
   --raised: #ffffff;
   --raised-hover: #f7f3ee;
   --ink: #17141a;
-  --ink-muted: #5d5763;
+  --ink-muted: #4f4955;
   --line: #e2dcd4;
   --control: #8f877f;
   --accent-text: #8c1d40;
@@ -64,7 +67,9 @@
   --logo-maroon: #8d133a;
   --highlight: rgb(255 255 255 / 0.8);
   --header-bg: rgb(250 248 245 / 0.86);
-  --hero-wash: color-mix(in srgb, var(--maroon) 12%, var(--bg));
+  --hero-wash: color-mix(in srgb, var(--maroon) 12%, transparent);
+  --geometry-ink: #5d5763;
+  --geometry-opacity: 0.36;
   --button-bg: var(--maroon);
   --button-bg-hover: var(--maroon-hover);
   --button-ink: var(--on-dark);
@@ -117,6 +122,7 @@ html {
 }
 
 body {
+  isolation: isolate;
   margin: 0;
   background: var(--bg);
   color: var(--ink);
@@ -231,6 +237,36 @@ summary {
 }
 
 /* ---------- 3. Layout ---------- */
+.geometric-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--geometry-ink);
+  opacity: var(--geometry-opacity);
+}
+
+.geometric-background > svg {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+}
+
+.background-shape {
+  overflow: visible;
+}
+
+.background-shape--desktop {
+  display: none;
+}
+
+@media (min-width: 720px) {
+  .background-shape--desktop {
+    display: block;
+  }
+}
+
 .container {
   width: 100%;
   max-width: 1120px;
@@ -759,7 +795,7 @@ html {
 /* Home hero. The maroon wash fades into the page, so the brand colour frames the headline without a heavy block. */
 .hero {
   padding-block: 56px 64px;
-  background: linear-gradient(180deg, var(--hero-wash), var(--bg) 92%);
+  background: linear-gradient(180deg, var(--hero-wash), transparent 92%);
 }
 
 .hero-grid {
