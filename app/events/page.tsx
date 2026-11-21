@@ -16,7 +16,7 @@ export default function EventsPage() {
       <PageHeading title="Events" lead="What’s coming up, and what we’ve already covered. Dates go out on Discord first."
         photo={{ src: meetingCrowd, alt: "A full lecture hall of students listening during a Hacker Devils event" }}
       />
-      <CodeAThonFeature />
+      <CodeAThonFeature showPrizes />
       <UpcomingEventsSection />
       <RecapsSection />
       <HostSection />
