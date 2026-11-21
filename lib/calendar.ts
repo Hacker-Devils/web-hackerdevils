@@ -5,14 +5,27 @@ import { links } from "@/content/site";
 export const MEETING_MS = 60 * 60 * 1000;
 export const meetingStart = (date: string) => Date.parse(`${date}T18:00:00-07:00`);
 
-export type NextMeeting = { date: string; start: number; sessions: UpcomingEvent[] };
+export type NextMeeting = { date: string; start: number; timeLabel: string; sessions: UpcomingEvent[] };
 
 /** The earliest meeting that hasn't finished by `now`, with everything running at that hour. */
 export function nextMeeting(now: number): NextMeeting | null {
-  const dates = upcomingEvents.flatMap((event) => event.dates ?? []).sort();
-  const date = dates.find((d) => meetingStart(d) + MEETING_MS > now);
-  if (!date) return null;
-  return { date, start: meetingStart(date), sessions: upcomingEvents.filter((event) => event.dates?.includes(date)) };
+  const occurrences = upcomingEvents.flatMap((event) => {
+    if (event.session) {
+      const { date, start, end, label } = event.session;
+      return [{ date, start: Date.parse(`${date}T${start}:00-07:00`), end: Date.parse(`${date}T${end}:00-07:00`), timeLabel: label, event }];
+    }
+    return (event.dates ?? []).map((date) => ({
+      date, start: meetingStart(date), end: meetingStart(date) + MEETING_MS, timeLabel: "6 to 7 PM", event,
+    }));
+  }).filter((occurrence) => occurrence.end > now).sort((a, b) => a.start - b.start);
+  const next = occurrences[0];
+  if (!next) return null;
+  return {
+    date: next.date,
+    start: next.start,
+    timeLabel: next.timeLabel,
+    sessions: occurrences.filter((occurrence) => occurrence.start === next.start).map((occurrence) => occurrence.event),
+  };
 }
 
 /** Whether an event has anything left to attend. Events with no date stay listed until they get one. */

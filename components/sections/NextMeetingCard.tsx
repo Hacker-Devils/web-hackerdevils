@@ -48,13 +48,13 @@ export function NextMeetingCard() {
 
   return (
     <aside className="next-card" aria-labelledby="next-title">
-      <h2 id="next-title">Next meeting</h2>
+      <h2 id="next-title">Next event</h2>
       <p className="next-date">{longDate(meeting.date)}</p>
-      <p className="next-time">6 to 7 PM Arizona time</p>
+      <p className="next-time">{meeting.timeLabel} Arizona time</p>
       {left === 0 ? (
         <p className="next-live">Happening now</p>
       ) : (
-        <div className="countdown" role="timer" aria-label="Time until the next meeting">
+        <div className="countdown" role="timer" aria-label="Time until the next event">
           {parts.map(([value, unit]) => (
             <div key={unit}>
               <b>{value}</b>
