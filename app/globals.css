@@ -2131,131 +2131,73 @@ html {
   font-size: 0.9375rem;
 }
 
-/* Code-A-Thon registration: one raised panel, with fields sized for thumbs. */
-.registration-event {
-  display: grid;
-  grid-template-areas: "poster" "intro" "form";
-  border: 1px solid color-mix(in srgb, var(--accent-text) 35%, var(--line));
-  border-radius: var(--radius-panel);
-  background: var(--raised);
+/* Registration uses the event card's artwork, overlay and divided lower shelf. */
+.registration-event h1 {
+  font-size: clamp(1.875rem, 3.8vw, 2.625rem);
+  letter-spacing: -0.035em;
+  line-height: 1.06;
 }
 
-.registration-event > * {
-  min-width: 0;
-}
-
-.registration-intro {
-  grid-area: intro;
-  padding: 24px 20px 0;
-}
-
-.registration-intro h1 {
-  max-width: 13ch;
-  margin-top: 16px;
-  font-size: clamp(2rem, 4.5vw, 3.25rem);
-}
-
-.registration-lead {
-  max-width: 34em;
-  margin-top: 20px;
-}
-
-.registration-lead em {
-  color: var(--accent-text);
-  font-style: normal;
-  font-weight: 600;
-}
-
-.registration-facts {
-  margin-top: 28px;
-}
-
-.registration-facts .fact-list > div {
-  grid-template-columns: 64px minmax(0, 1fr);
-  gap: 12px;
-}
-
-.registration-poster {
-  position: relative;
-  grid-area: poster;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  border-radius: calc(var(--radius-panel) - 1px) calc(var(--radius-panel) - 1px) 0 0;
-}
-
-.registration-poster img {
-  object-fit: cover;
-  object-position: 64% 18%;
-}
-
-/* Blend the original poster into the page without putting artwork behind form fields. */
-.registration-poster::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 75%, var(--raised));
-  pointer-events: none;
+.registration-event .feature-atmosphere > img {
+  object-position: 30% top;
 }
 
 .registration-form {
-  grid-area: form;
-  padding: 28px 12px 12px;
+  padding: 28px 24px;
+  border-top: 1px solid var(--line);
+  background: color-mix(in srgb, var(--raised) 75%, transparent);
 }
 
 .registration-form .form-panel {
-  padding: 24px 16px;
-  background: var(--bg);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
 }
 
-@media (min-width: 640px) {
-  .registration-event {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
-    grid-template-areas: "intro poster" "form form";
-  }
+.registration-form :is(.field input:not([type="radio"]), .track-option) {
+  background: var(--raised);
+}
 
-  .registration-intro {
-    padding: 32px 24px 0;
-  }
+.registration-form .track-option:has(input:checked) {
+  background: var(--raised-hover);
+}
 
-  .registration-poster {
-    aspect-ratio: auto;
-    border-radius: 0 calc(var(--radius-panel) - 1px) 0 0;
-  }
-
-  .registration-poster img {
-    object-position: 51% top;
-  }
-
+@media (max-width: 639px) {
   .registration-form {
-    padding: 28px 24px 24px;
+    padding: 24px 20px;
   }
 
-  .registration-form .form-panel {
-    padding: 32px;
+  .registration-form .button {
+    width: 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  .registration-form {
+    padding: 32px 40px;
+  }
+
+  .registration-form form.form-panel,
+  .registration-form .track-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .registration-form :is(h2, fieldset, .form-error, .form-note, .button) {
+    grid-column: 1 / -1;
+  }
+
+  .registration-form .field:has(#hackerrank) {
+    grid-column: 1 / -1;
+    max-width: 460px;
+    width: 100%;
   }
 }
 
 @media (min-width: 960px) {
-  .registration-event {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-    grid-template-areas: "intro poster" "form poster";
-  }
-
-  .registration-intro {
-    padding: 40px 32px 0;
-  }
-
-  .registration-poster {
-    border-radius: 0 calc(var(--radius-panel) - 1px) calc(var(--radius-panel) - 1px) 0;
-  }
-
-  .registration-poster::after {
-    background: linear-gradient(to right, var(--raised), transparent 12%);
-  }
-
   .registration-form {
-    padding: 28px 32px 32px;
+    padding: 32px 48px;
   }
 }
 

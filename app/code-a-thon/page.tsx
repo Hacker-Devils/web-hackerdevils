@@ -13,18 +13,21 @@ export const metadata: Metadata = {
 export default function CodeAThonPage() {
   return (
     <Section labelledBy="registration-title">
-      <article className="registration-event">
-        <header className="registration-intro">
-          <p className="feature-date">Sunday, Nov 22 · 1–4 PM · PSF 173</p>
-          <h1 id="registration-title">Register for the Code-A-Thon</h1>
-          <p className="registration-lead">Code. Compete. <em>Take home the prizes.</em> Pick the track that fits you.</p>
-          <p className="feature-pizza">Free pizzas included!</p>
-          <div className="registration-facts">
+      <article className="feature feature--prizes registration-event">
+        <header className="feature-event-head">
+          <div className="feature-mobile-poster" aria-hidden="true">
+            <Image src={backdrop} alt="" fill unoptimized sizes="(max-width: 639px) 100vw, 0px" />
+          </div>
+          <div className="feature-copy">
+            <p className="feature-date">Sunday, Nov 22 · 1–4 PM · PSF 173</p>
+            <h1 id="registration-title">Code-A-Thon</h1>
+            <p className="feature-lead">Code. Compete. <em>Take home the prizes.</em></p>
+            <p className="feature-pizza">Free pizzas included!</p>
             <FactList items={codeAThonFacts} />
           </div>
         </header>
-        <div className="registration-poster" aria-hidden="true">
-          <Image src={backdrop} alt="" fill unoptimized sizes="(max-width: 639px) 100vw, (max-width: 959px) 45vw, 480px" preload />
+        <div className="feature-atmosphere" aria-hidden="true">
+          <Image src={backdrop} alt="" fill unoptimized sizes="100vw" preload />
         </div>
         <div className="registration-form">
           <RegistrationForm />
