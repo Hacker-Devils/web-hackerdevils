@@ -1,0 +1,40 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+language: en-US
+enable_free_tier: true
+tone_instructions: "Be concise and specific. Prioritize bugs, security issues, and regressions. Explain what can break and suggest a concrete fix; avoid speculative rewrites and cosmetic nitpicks."
+
+reviews:
+  profile: chill
+  high_level_summary: true
+  high_level_summary_in_walkthrough: true
+  changed_files_summary: true
+  poem: false
+  sequence_diagrams: false
+  review_status: true
+  review_progress: true
+  fail_commit_status: true
+  auto_approvals:
+    enabled: true
+    min_blocking_severity: major
+  auto_review:
+    enabled: true
+    drafts: true
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 0
+  path_filters:
+    - "!**/node_modules/**"
+    - "!.next/**"
+    - "!out/**"
+  path_instructions:
+    - path: "**/*"
+      instructions: |
+        Focus on actionable regressions, runtime failures, security, and broken user flows.
+        Preserve the existing minimal UI and check responsive layouts, both themes,
+        keyboard access, and reduced-motion behavior when relevant.
+        Event dates and calendar/countdown times use America/Phoenix (UTC-7).
+        Review registration validation and Firestore rules together when either changes;
+        registration data must not become publicly readable or editable.
+        Suggest small, directly applicable fixes in the existing PR. Never merge a PR.
+
+chat:
+  auto_reply: true

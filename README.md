@@ -102,6 +102,34 @@ The form at `/code-a-thon` saves sign-ups to Firestore in the Firebase project `
 - **Change the rules:** edit `firestore.rules`, then publish it in the console's Rules tab, or run `firebase deploy --only firestore:rules` while logged in as the club account.
 - **Next event:** change `eventId` and `closes` in `content/events.ts`, and the matching event ID and cutoff in `firestore.rules`.
 
+## Pull request reviews and merging
+
+CodeRabbit reviews new pull requests (including drafts) and new commits through its
+GitHub App, configured in `.coderabbit.yaml`. It posts a summary and actionable
+findings, requests changes for major or critical issues, and rechecks updates.
+Its approval is a review decision; only repository admins can merge to `main`.
+
+To apply a proposed fix to the existing PR, use GitHub's **Commit suggestion** action
+or reply to the CodeRabbit comment with `@coderabbitai local commit`. The latter
+requires write access. Authors can also commit their own fix and push to the same
+branch. CodeRabbit then reviews that update, subject to its plan's rate limits.
+
+Install the CodeRabbit GitHub App under the club account and select only
+`Hacker-Devils/web-hackerdevils`. Public open-source repositories can use CodeRabbit's
+free OSS reviews; the regular Free plan provides PR summaries only. Do not enable
+paid subscriptions or usage-based add-ons as part of this setup.
+
+The live GitHub ruleset is configured separately from repository files. Its desired
+settings are recorded in `.github/rulesets/admin-only-main-merges.json`: updates to
+`main` are restricted, and the repository-admin role can bypass that restriction
+only when merging a pull request. Contributors and CodeRabbit can push fixes to PR
+branches, but cannot merge to `main` or push directly to it. Keeping the JSON file
+alone does not apply the rule; a repository admin must create or update the ruleset
+in GitHub settings or through the GitHub API.
+
+See [CodeRabbit's plans](https://docs.coderabbit.ai/management/plans) and
+[review commands](https://docs.coderabbit.ai/reference/review-commands).
+
 ## Deploy
 
 **Vercel:** import the repo and keep the defaults. The `main` branch is what deploys.
