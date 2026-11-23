@@ -6,8 +6,8 @@ export function MeetingSection() {
     <Section tone="soft" labelledBy="meeting-title">
       <SectionHeading
         id="meeting-title"
-        title="One hour, every Wednesday"
-        lead="Two weeks alternate through the semester. Classes teach you how to program, and these hours are practice for the part interviews actually test."
+        title="How meetings work"
+        lead="No meeting Wednesday, November 25. Our next meeting is Medium section on December 2, from 6 to 7 PM Arizona time."
       />
       <div className="rotation">
         {rotation.map((week) => (

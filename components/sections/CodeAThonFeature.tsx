@@ -24,7 +24,7 @@ const prizeTracks = [
   { name: "Beginner track", prizes: [{ name: "Squishmallows", image: squishmallows }] },
 ];
 
-/** Advertises the Code-A-Thon until it ends, then removes itself from the page. */
+/** Keeps the full event card as a recap after the homepage promotion ends. */
 export function CodeAThonFeature({ showPrizes = false }: { showPrizes?: boolean }) {
   const [now, setNow] = useState(0);
 
@@ -32,7 +32,8 @@ export function CodeAThonFeature({ showPrizes = false }: { showPrizes?: boolean 
     setNow(Date.now());
   }, []);
 
-  if (!isUpcoming(codeAThon, now)) return null;
+  const completed = !isUpcoming(codeAThon, now);
+  if (completed && !showPrizes) return null;
 
   return (
     <Section id="code-a-thon" labelledBy="code-a-thon-title">
@@ -40,22 +41,24 @@ export function CodeAThonFeature({ showPrizes = false }: { showPrizes?: boolean 
         <div className={showPrizes ? "feature-event-head" : "feature-unfeatured"}>
           {showPrizes ? <CodeAThonMobilePoster /> : null}
           <div className={showPrizes ? "feature-copy" : undefined}>
-            {showPrizes ? <p className="feature-date">Sunday, Nov 22 · 1–4 PM · PSF 173</p> : null}
+            {showPrizes ? <p className="feature-date">{completed ? "Completed · " : ""}Sunday, Nov 22 · 1–4 PM · PSF 173</p> : null}
             <h2 id="code-a-thon-title">Code-A-Thon</h2>
             <p className="feature-lead">
               {showPrizes ? (
-                <>Code. Compete. <em>Take home the prizes.</em></>
+                completed ? <>Code, competition <em>and prizes.</em></> : <>Code. Compete. <em>Take home the prizes.</em></>
               ) : (
                 <>A coding competition on HackerRank, in person, with <em>a chance to win GTA 6</em>.</>
               )}
             </p>
             {showPrizes ? <p className="feature-pizza">Free pizzas included!</p> : null}
-            <div className="feature-actions">
-              <Button href="/code-a-thon" size="small">
-                Register
-              </Button>
-              <AddToCalendar event={codeAThon} />
-            </div>
+            {!completed ? (
+              <div className="feature-actions">
+                <Button href="/code-a-thon" size="small">
+                  Register
+                </Button>
+                <AddToCalendar event={codeAThon} />
+              </div>
+            ) : null}
             {showPrizes ? <FactList items={codeAThonFacts} /> : null}
           </div>
           {!showPrizes ? <FactList items={codeAThonFacts} /> : null}
