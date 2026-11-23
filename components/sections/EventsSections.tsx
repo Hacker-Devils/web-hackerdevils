@@ -6,7 +6,7 @@ import { UpcomingList } from "./UpcomingList";
 export function UpcomingEventsSection({ linkToRecaps = false }: { linkToRecaps?: boolean }) {
   return (
     <Section id="upcoming" labelledBy="upcoming-title">
-      <SectionHeading id="upcoming-title" title="On the calendar" lead="Add a session to your calendar and it repeats for the rest of the semester." />
+      <SectionHeading id="upcoming-title" title="On the calendar" lead="See the next sessions and add them to your calendar." />
       <UpcomingList />
       {linkToRecaps ? (
         <p className="section-footnote">

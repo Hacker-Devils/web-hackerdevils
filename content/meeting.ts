@@ -1,14 +1,14 @@
 export const meetingFacts = [
-  { label: "Time", value: "Wednesdays, 6 to 7 PM Arizona time" },
+  { label: "Time", value: "6 to 7 PM Arizona time" },
   { label: "Place", value: "Wilson Hall, Tempe campus" },
   { label: "Bring", value: "A laptop and any language you like" },
   { label: "Food", value: "Free pizza, every meeting" },
 ] as const;
 
-/** The two weeks that alternate through the semester. */
+/** The meeting formats offered through the semester. */
 export const rotation = [
   {
-    title: "One week",
+    title: "Easy and system design",
     sessions: [
       { name: "Easy section", room: "WLSN 114" },
       { name: "System design", room: "WLSN 253" },
@@ -16,9 +16,9 @@ export const rotation = [
     note: "Same hour, so pick one.",
   },
   {
-    title: "The next week",
+    title: "Medium",
     sessions: [{ name: "Medium section", room: "WLSN 114" }],
-    note: "Then the rotation repeats.",
+    note: "Coding practice and a solution walkthrough.",
   },
 ] as const;
 
