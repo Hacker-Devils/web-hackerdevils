@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { RegistrationForm } from "@/components/sections/RegistrationForm";
+import { CodeAThonAtmosphere } from "@/components/sections/CodeAThonAtmosphere";
 import { FactList, Section } from "@/components/ui";
 import { codeAThonFacts } from "@/content/events";
 import backdrop from "@/public/prizes/gta-vi-background.png";
@@ -26,9 +27,7 @@ export default function CodeAThonPage() {
             <FactList items={codeAThonFacts} />
           </div>
         </header>
-        <div className="feature-atmosphere" aria-hidden="true">
-          <Image src={backdrop} alt="" fill unoptimized sizes="100vw" preload />
-        </div>
+        <CodeAThonAtmosphere preloadBackground />
         <div className="registration-form">
           <RegistrationForm />
         </div>

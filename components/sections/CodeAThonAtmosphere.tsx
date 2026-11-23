@@ -38,7 +38,7 @@ export function CodeAThonMobilePoster() {
   );
 }
 
-export function CodeAThonAtmosphere() {
+export function CodeAThonAtmosphere({ preloadBackground = false }: { preloadBackground?: boolean }) {
   const atmosphere = useRef<HTMLDivElement>(null);
   const musicHost = useRef<HTMLDivElement>(null);
   const player = useRef<MusicPlayer | null>(null);
@@ -127,7 +127,7 @@ export function CodeAThonAtmosphere() {
           onReady={() => youtube()?.ready(() => setApiReady(true))} />
       ) : null}
       <div className="feature-atmosphere" ref={atmosphere} aria-hidden="true">
-        <Image src={backdrop} alt="" fill unoptimized sizes="(max-width: 1120px) 100vw, 1080px" />
+        <Image src={backdrop} alt="" fill unoptimized sizes="(max-width: 1120px) 100vw, 1080px" preload={preloadBackground} />
       </div>
       <div className="feature-audio" ref={musicHost} aria-hidden="true" />
       {entered && !entranceDone ? (
