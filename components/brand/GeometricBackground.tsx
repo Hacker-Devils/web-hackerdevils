@@ -126,8 +126,8 @@ export function GeometricBackground() {
 
     function move(event: PointerEvent) {
       if (!enabled() || event.pointerType === "touch") return;
-      target.x = (1 - (event.clientX / window.innerWidth) * 2) * Math.min(window.innerWidth * 0.05, 80);
-      target.y = (1 - (event.clientY / window.innerHeight) * 2) * Math.min(window.innerHeight * 0.05, 50);
+      target.x = (1 - (event.clientX / window.innerWidth) * 2) * Math.min(window.innerWidth * 0.05, 80) * 1.65;
+      target.y = (1 - (event.clientY / window.innerHeight) * 2) * Math.min(window.innerHeight * 0.05, 50) * 1.65;
       schedule();
     }
 
